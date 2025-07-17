@@ -24,7 +24,8 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         // get all character data from the CharactersData script
         allCharacters = CharactersData.charactersList.characters;
-        DisplayCurrentCharacter();
+        DisplayCurrentCharacter(); //display first character on scene
+        UpdateArrowButtons();
 
     }
 
@@ -52,6 +53,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
         Characters.Character selectedCharacter = allCharacters[currentCharacterIndex];
 
+        //Update Text
         CharacterName.text = selectedCharacter.characterName;
 
         CharacterHealth.text = "Health:" + selectedCharacter.maxHealth.ToString();
@@ -61,6 +63,63 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public void OnLeftButtonClick()
     {
-        currentCharacterIndex = 0;
+        currentCharacterIndex = currentCharacterIndex -1;
+
+        currentCharacterIndex = Mathf.Max(0, currentCharacterIndex); // ensure Index does not go below 0
+
+        DisplayCurrentCharacter(); // update the UI
+
+        UpdateArrowButtons();
+    }
+
+    public void OnRightButtonClick()
+    {
+        currentCharacterIndex = currentCharacterIndex + 1;
+
+        currentCharacterIndex = Mathf.Min(allCharacters.Length - 1, currentCharacterIndex); //prevent index from exceeding max
+
+        DisplayCurrentCharacter();
+
+        UpdateArrowButtons();
+    }
+
+    private void UpdateArrowButtons()
+    {
+        // Check if character data was loaded successfully and is not empty
+        if (allCharacters == null || allCharacters.Length == 0)
+        {
+            LeftButton.gameObject.SetActive(false);
+            RightButton.gameObject.SetActive(false);
+            return;
+        }
+
+        if (currentCharacterIndex == 0)
+        {
+            LeftButton.interactable = false; //disable left button if at first character
+        }
+        else
+        {
+            LeftButton.interactable = true;
+        }
+
+        if (currentCharacterIndex == allCharacters.Length - 1)
+        {
+            RightButton.interactable = false; // disable right button if at last character
+        }
+        else
+        {
+            RightButton.interactable = true;
+        }
+    }
+
+    public void OnPlayButtonClick()
+    {
+        SceneManager.LoadScene("GameScene"); // to be change once the game scene is created
+
+    }
+
+    public void OnBackButtonClick()
+    {
+        SceneManager.LoadScene("StartGameMenu");
     }
 }

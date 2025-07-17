@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         // Load to a new scene by the name
-        UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterSlection");
+        SceneManager.LoadScene("CharacterSelection");
     }
 
     public void QuitGame()
