@@ -70,8 +70,19 @@ public class Characters : MonoBehaviour
             charactersList.characters[i - 1].maxHealth = int.Parse(parts[4]);
             /*charactersList.characters[i].initialWeaponId = parts[5];*/
             charactersList.characters[i - 1].characterSpriteName = parts[5];
-            /*foreach (var )*/
-
+            
+            foreach (var charSprite in characterSprites)
+            {
+                string characterSprite = charSprite.name;
+                if (characterSprite == parts[5])
+                {
+                    charactersList.characters[i - 1].characterSprite = charSprite;
+                }
+                else
+                {
+                    Debug.LogError("no sprite found");
+                }
+            }
         }
     }
 }

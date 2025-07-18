@@ -54,6 +54,8 @@ public class CharacterSelectionManager : MonoBehaviour
         Characters.Character selectedCharacter = allCharacters[currentCharacterIndex];
 
         //Update Text
+        CharacterPortrait.sprite = selectedCharacter.characterSprite;
+
         CharacterName.text = selectedCharacter.characterName;
 
         CharacterHealth.text = "Health:" + selectedCharacter.maxHealth.ToString();
