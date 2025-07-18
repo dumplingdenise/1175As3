@@ -286,6 +286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAssetData: {fileID: 4900000, guid: f15ee7e4b90c878409da9b1d42412403, type: 3}
+  characterSprites:
+  - {fileID: -120629654923125150, guid: c41054e05a8fb8b46a79e489442de862, type: 3}
+  - {fileID: -2698106217987736053, guid: 3f02f191476a8b84f8dcc5afdad2206d, type: 3}
   charactersList:
     characters: []
 --- !u!4 &1177966767

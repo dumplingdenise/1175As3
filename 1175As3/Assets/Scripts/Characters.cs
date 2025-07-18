@@ -5,6 +5,7 @@ public class Characters : MonoBehaviour
 {
 
     public TextAsset textAssetData;
+    public Sprite[] characterSprites;
 
     [System.Serializable]
     public class Character
@@ -15,7 +16,8 @@ public class Characters : MonoBehaviour
         public float movementSpeed;
         public int maxHealth;
         /*public string initialWeaponId;*/
-        /*public Sprite characterSprite;*/
+        public string characterSpriteName;
+        public Sprite characterSprite;
     }
 
     [System.Serializable]
@@ -64,10 +66,11 @@ public class Characters : MonoBehaviour
             charactersList.characters[i - 1].id = parts[0];
             charactersList.characters[i - 1].characterName = parts[1];
             charactersList.characters[i - 1].description = parts[2];
-            charactersList.characters[i- 1].movementSpeed = int.Parse(parts[3]);
+            charactersList.characters[i- 1].movementSpeed = float.Parse(parts[3]);
             charactersList.characters[i - 1].maxHealth = int.Parse(parts[4]);
             /*charactersList.characters[i].initialWeaponId = parts[5];*/
-            /*charactersList.characters[i].characterSprite = parts[5];*/
+            charactersList.characters[i - 1].characterSpriteName = parts[5];
+            /*foreach (var )*/
 
         }
     }

@@ -95,24 +95,24 @@ public class CharacterSelectionManager : MonoBehaviour
 
         if (currentCharacterIndex == 0)
         {
-            LeftButton.interactable = false;
-           // LeftButton.gameObject.SetActive(false); //disable left button if at first character
+            /*LeftButton.interactable = false;*/
+            LeftButton.gameObject.SetActive(false); //disable left button if at first character
         }
         else
         {
-            LeftButton.interactable = true;
-            // LeftButton.gameObject.SetActive(true);
+            /*LeftButton.interactable = true;*/
+            LeftButton.gameObject.SetActive(true);
         }
 
         if (currentCharacterIndex == allCharacters.Length - 1)
         {
-            RightButton.interactable = false;
-            //RightButton.gameObject.SetActive(false); // disable right button if at last character
+            /*RightButton.interactable = false;*/
+            RightButton.gameObject.SetActive(false); // disable right button if at last character
         }
         else
         {
-            RightButton.interactable = true;
-           // RightButton.gameObject.SetActive(true);
+           /* RightButton.interactable = true;*/
+           RightButton.gameObject.SetActive(true);
         }
     }
 
