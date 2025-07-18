@@ -40,8 +40,7 @@ public class Characters : MonoBehaviour
 
     void readCSV()
     {
-        /*string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);*/
-        string[] data = textAssetData.text.Split(new string[] {"\n" }, StringSplitOptions.None); // split the file by rows and avoid empty rows
+        string[] data = textAssetData.text.Split(new string[] {"\n" }, StringSplitOptions.RemoveEmptyEntries); // split the file by rows and avoid empty rows
 
 
 
