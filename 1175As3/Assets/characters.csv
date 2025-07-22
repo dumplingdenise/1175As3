@@ -1,0 +1,3 @@
+id,characterName,description,movementSpeed,maxHealth,characterSpriteName
+1,Character1,This is character 1,5,20,character-d_0
+2,Character2,This is character 2,7,10,character-g_0
