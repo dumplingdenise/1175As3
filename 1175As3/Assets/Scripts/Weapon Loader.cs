@@ -6,6 +6,12 @@ public class WeaponLoader : MonoBehaviour
     public TextAsset weaponCSVFile;
     public Sprite[] weaponSprites;
 
+    [System.Serializable]
+    public class WeaponList
+    {
+        public WeaponData[] weapons;
+    }
+
     public WeaponList weaponList = new WeaponList();
 
     void Start()
@@ -23,33 +29,46 @@ public class WeaponLoader : MonoBehaviour
             return;
         }
 
-        weaponList.weapons = new WeaponData[data.Length - 1];
+        weaponList.weapons = new WeaponData[data.Length - 1]; // skip header row
 
-        for (int i = 1; i < data.Length; i++)
+        for (int i = 1; i < data.Length; i++) // skip header
         {
-            string[] parts = data[i].Trim().Split(',');
+            string line = data[i].Trim();
+            if (string.IsNullOrEmpty(line)) continue;
 
-            if (parts.Length < 7) continue;
+            string[] parts = line.Split(',');
 
-            WeaponData weapon = new WeaponData
+            if (parts.Length < 8)
             {
-                id = parts[0],
-                weaponName = parts[1],
-                description = parts[2],
-                damage = float.Parse(parts[3]),
-                fireRate = float.Parse(parts[4]),
-                bulletsPerShot = int.Parse(parts[5]),
-                spreadAngle = float.Parse(parts[6]),
-                spriteName = parts[7]
-            };
+                Debug.LogWarning($"Skipping line {i} due to insufficient data.");
+                continue;
+            }
 
+            WeaponData weapon = new WeaponData();
+            weapon.id = parts[0];
+            weapon.weaponName = parts[1];
+            weapon.description = parts[2];
+            weapon.damage = float.Parse(parts[3]);
+            weapon.fireRate = float.Parse(parts[4]);
+            weapon.bulletsPerShot = int.Parse(parts[5]);
+            weapon.spreadAngle = float.Parse(parts[6]);
+            weapon.spriteName = parts[7];
+
+            // Match sprite name
+            bool spriteFound = false;
             foreach (var sprite in weaponSprites)
             {
                 if (sprite.name == weapon.spriteName)
                 {
                     weapon.weaponSprite = sprite;
+                    spriteFound = true;
                     break;
                 }
+            }
+
+            if (!spriteFound)
+            {
+                Debug.LogWarning($"Sprite not found for weapon: {weapon.weaponName} (Sprite name: {weapon.spriteName})");
             }
 
             weaponList.weapons[i - 1] = weapon;

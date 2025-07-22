@@ -1,3 +1,3 @@
-﻿id ,weapon name,description ,damage,fireRate,bulletsPerShot,spreadAngle,spriteName
+﻿id,weapon name,description,damage,fireRate,bulletsPerShot,spreadAngle,spriteName
 w1,Pistol,A basic pistol,10,0.5,1,0,PistolSprite
 w2,Shotgun,A spread weapon,5,1.2,5,45,ShotgunSprite
