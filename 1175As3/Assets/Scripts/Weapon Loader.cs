@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class WeaponLoader : MonoBehaviour
 {
-    public TextAsset weaponCSVFile;
-    public Sprite[] weaponSprites;
+    public TextAsset weaponCSVFile;         // CSV file to read weapon data
+    public Sprite[] weaponSprites;          // Sprites to match with weapon sprite names
+    public WeaponSelection weaponSelection; // Reference to WeaponSelection (assign in Inspector)
 
     [System.Serializable]
     public class WeaponList
@@ -17,21 +18,36 @@ public class WeaponLoader : MonoBehaviour
     void Start()
     {
         ReadCSV();
+
+        if (weaponSelection != null)
+        {
+            weaponSelection.InitializeWeapons(weaponList.weapons);
+        }
+        else
+        {
+            Debug.LogWarning("WeaponSelection reference not assigned to WeaponLoader!");
+        }
     }
 
     void ReadCSV()
     {
+        if (weaponCSVFile == null)
+        {
+            Debug.LogError("CSV file not assigned!");
+            return;
+        }
+
         string[] data = weaponCSVFile.text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-        if (data == null || data.Length <= 1)
+        if (data.Length <= 1)
         {
-            Debug.LogError("Weapon CSV file is missing or empty");
+            Debug.LogError("Weapon CSV file is missing or only contains header.");
             return;
         }
 
         weaponList.weapons = new WeaponData[data.Length - 1]; // skip header row
 
-        for (int i = 1; i < data.Length; i++) // skip header
+        for (int i = 1; i < data.Length; i++) // Start from 1 to skip header
         {
             string line = data[i].Trim();
             if (string.IsNullOrEmpty(line)) continue;
@@ -40,7 +56,7 @@ public class WeaponLoader : MonoBehaviour
 
             if (parts.Length < 8)
             {
-                Debug.LogWarning($"Skipping line {i} due to insufficient data.");
+                Debug.LogWarning($"Skipping line {i} due to insufficient columns: {line}");
                 continue;
             }
 
@@ -54,11 +70,11 @@ public class WeaponLoader : MonoBehaviour
             weapon.spreadAngle = float.Parse(parts[6]);
             weapon.spriteName = parts[7];
 
-            // Match sprite name
+            // Match sprite name to assign sprite
             bool spriteFound = false;
             foreach (var sprite in weaponSprites)
             {
-                if (sprite.name == weapon.spriteName)
+                if (sprite != null && sprite.name == weapon.spriteName)
                 {
                     weapon.weaponSprite = sprite;
                     spriteFound = true;
@@ -73,5 +89,7 @@ public class WeaponLoader : MonoBehaviour
 
             weaponList.weapons[i - 1] = weapon;
         }
+
+        Debug.Log($"WeaponLoader: Loaded {weaponList.weapons.Length} weapons from CSV.");
     }
 }

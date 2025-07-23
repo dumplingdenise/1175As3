@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class WeaponSelectionManager : MonoBehaviour
+public class WeaponSelection : MonoBehaviour
 {
     public Image weaponImage;
     public TextMeshProUGUI weaponName;
@@ -16,6 +16,7 @@ public class WeaponSelectionManager : MonoBehaviour
     public Button leftButton;
     public Button rightButton;
     public Button selectButton;
+    public Button backButton;
 
     public WeaponLoader weaponLoader; // Reference to loader script
     private WeaponData[] allWeapons;
@@ -77,7 +78,7 @@ public class WeaponSelectionManager : MonoBehaviour
     {
         // Save selected weapon index
         PlayerPrefs.SetInt("SelectedWeaponIndex", currentWeaponIndex);
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("CharacterSelection");
     }
 
     public void OnBackButtonClick()
