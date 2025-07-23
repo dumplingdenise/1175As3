@@ -8,81 +8,105 @@ public class WeaponSelection : MonoBehaviour
     public Image weaponImage;
     public TextMeshProUGUI weaponName;
     public TextMeshProUGUI weaponDescription;
-    public TextMeshProUGUI weaponDamageRate;
+    public TextMeshProUGUI weaponDamage; // Corrected to match your current script
     public TextMeshProUGUI weaponFireRate;
     public TextMeshProUGUI bulletsPerShot;
     public TextMeshProUGUI spreadAngle;
 
-    public Button leftButton;
-    public Button rightButton;
-    public Button selectButton;
-    public Button backButton;
+    public Button leftButton;   // Renamed
+    public Button rightButton;  // Renamed
+    public Button selectButton; // Renamed from PlayButton
+    public Button backButton;   // Renamed
 
-    public WeaponLoader weaponLoader; // Reference to loader script
+    // No need for a direct WeaponLoader reference here if WeaponLoader calls InitializeWeapons
+
     private WeaponData[] allWeapons;
     private int currentWeaponIndex = 0;
 
-    void Start()
+    // This method is called EXTERNALLY by WeaponLoader once data is ready
+    public void InitializeWeapons(WeaponData[] weapons)
     {
-        allWeapons = weaponLoader.weaponList.weapons;
+        allWeapons = weapons;
 
         if (allWeapons == null || allWeapons.Length == 0)
         {
-            Debug.LogError("No weapons found!");
+            Debug.LogError("WeaponSelection: No weapons found after initialization!");
+            // Consider disabling UI elements if no weapons are found
+            weaponImage.gameObject.SetActive(false);
+            weaponName.gameObject.SetActive(false);
+            weaponDescription.gameObject.SetActive(false);
+            weaponDamage.gameObject.SetActive(false);
+            weaponFireRate.gameObject.SetActive(false);
+            bulletsPerShot.gameObject.SetActive(false);
+            spreadAngle.gameObject.SetActive(false);
+            leftButton.gameObject.SetActive(false);
+            rightButton.gameObject.SetActive(false);
             return;
         }
 
-        DisplayWeapon();
+        currentWeaponIndex = 0;
+        DisplayCurrentWeapon(); // Renamed for clarity and consistency
         UpdateArrowButtons();
     }
 
-    void DisplayWeapon()
+    // Renamed for clarity and consistency
+    private void DisplayCurrentWeapon()
     {
         if (currentWeaponIndex < 0 || currentWeaponIndex >= allWeapons.Length)
         {
-            Debug.LogError("Weapon index out of range!");
+            Debug.LogError("WeaponSelection: Weapon index out of bounds: " + currentWeaponIndex);
             return;
         }
 
-        var w = allWeapons[currentWeaponIndex];
-        weaponImage.sprite = w.weaponSprite;
-        weaponName.text = w.weaponName;
-        weaponDescription.text = w.description;
-        weaponDamageRate.text = "Damage: " + w.damage;
-        weaponFireRate.text = "Fire Rate: " + w.fireRate;
-        bulletsPerShot.text = "Bullets/Shot: " + w.bulletsPerShot;
-        spreadAngle.text = "Spread: " + w.spreadAngle;
+        WeaponData weapon = allWeapons[currentWeaponIndex];
+        weaponImage.sprite = weapon.weaponSprite;
+        weaponName.text = weapon.weaponName;
+        weaponDescription.text = weapon.description;
+        // Ensure 'w.damage' is correctly assigned to 'weaponDamageRate'
+        weaponDamage.text = "Damage: " + weapon.damage.ToString();
+        weaponFireRate.text = "Fire Rate: " + weapon.fireRate.ToString();
+        bulletsPerShot.text = "Bullets/Shot: " + weapon.bulletsPerShot.ToString();
+        spreadAngle.text = "Spread: " + weapon.spreadAngle.ToString();
     }
 
-    public void OnLeftClick()
+    // Public methods for button clicks
+    public void OnLeftClick() // Renamed from OnLeftButtonClick
     {
         currentWeaponIndex = Mathf.Max(0, currentWeaponIndex - 1);
-        DisplayWeapon();
+        DisplayCurrentWeapon();
         UpdateArrowButtons();
     }
 
-    public void OnRightClick()
+    public void OnRightClick() // Renamed from OnRightButtonClick
     {
         currentWeaponIndex = Mathf.Min(allWeapons.Length - 1, currentWeaponIndex + 1);
-        DisplayWeapon();
+        DisplayCurrentWeapon();
         UpdateArrowButtons();
     }
 
-    void UpdateArrowButtons()
+    // Renamed for clarity and consistency
+    private void UpdateArrowButtons()
     {
+        // Handle case where allWeapons might be null or empty if initialization failed
+        if (allWeapons == null || allWeapons.Length == 0)
+        {
+            leftButton.gameObject.SetActive(false);
+            rightButton.gameObject.SetActive(false);
+            return;
+        }
+
         leftButton.gameObject.SetActive(currentWeaponIndex > 0);
         rightButton.gameObject.SetActive(currentWeaponIndex < allWeapons.Length - 1);
     }
 
-    public void OnPlayButtonClick()
+    public void OnSelectButtonClick() // Renamed from OnPlayButtonClick
     {
-        // Save selected weapon index
         PlayerPrefs.SetInt("SelectedWeaponIndex", currentWeaponIndex);
-        SceneManager.LoadScene("CharacterSelection");
+        SceneManager.LoadScene("GameScene"); // Retained original game scene load
     }
 
     public void OnBackButtonClick()
     {
-        SceneManager.LoadScene("StartGameMenu");
+        SceneManager.LoadScene("CharacterSelection"); // Your updated back scene
     }
 }

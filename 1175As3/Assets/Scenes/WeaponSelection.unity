@@ -775,7 +775,7 @@ MonoBehaviour:
   weaponImage: {fileID: 20078665}
   weaponName: {fileID: 1637330531}
   weaponDescription: {fileID: 301824414}
-  weaponDamageRate: {fileID: 1568183478}
+  weaponDamage: {fileID: 1568183478}
   weaponFireRate: {fileID: 683220886}
   bulletsPerShot: {fileID: 1151764382}
   spreadAngle: {fileID: 1798635451}
@@ -783,7 +783,6 @@ MonoBehaviour:
   rightButton: {fileID: 1715024033}
   selectButton: {fileID: 1048933478}
   backButton: {fileID: 833215309}
-  weaponLoader: {fileID: 589622862}
 --- !u!114 &259829871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,7 +997,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -418.39954, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1037,8 +1036,8 @@ RectTransform:
   - {fileID: 20078663}
   - {fileID: 1637330529}
   - {fileID: 301824412}
-  - {fileID: 1568183476}
   - {fileID: 683220884}
+  - {fileID: 1568183476}
   - {fileID: 1151764380}
   - {fileID: 1798635449}
   m_Father: {fileID: 749147045}
@@ -1271,7 +1270,7 @@ MonoBehaviour:
   weaponSprites:
   - {fileID: -100346213740291904, guid: a03689ce72f85b64197fa23a8ff9bb31, type: 3}
   - {fileID: 9133979060935935197, guid: fb63b7188aee18a428ea2885be05fa94, type: 3}
-  weaponSelection: {fileID: 0}
+  weaponSelectionUI: {fileID: 259829870}
   weaponList:
     weapons: []
 --- !u!1 &683220883
@@ -1404,7 +1403,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -240.10403, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1746,7 +1745,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 259829870}
         m_TargetAssemblyTypeName: WeaponSelection, Assembly-CSharp
-        m_MethodName: OnPlayButtonClick
+        m_MethodName: OnSelectButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2022,7 +2021,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -280.51703, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2158,7 +2157,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -263.8764, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
