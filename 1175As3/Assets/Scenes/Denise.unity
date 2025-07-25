@@ -285,10 +285,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 766344b650571434dac42fa70ac4b227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAssetData: {fileID: 4900000, guid: f15ee7e4b90c878409da9b1d42412403, type: 3}
-  characterSprites:
-  - {fileID: -120629654923125150, guid: c41054e05a8fb8b46a79e489442de862, type: 3}
-  - {fileID: -2698106217987736053, guid: 3f02f191476a8b84f8dcc5afdad2206d, type: 3}
+  allCharacterSprites:
+  - {fileID: -3767049706901488578, guid: 03ea9261f60ac984cab98efb56026180, type: 3}
+  - {fileID: 8234138165984798498, guid: 271d9e217a24e46489a8999053a2a23a, type: 3}
+  - {fileID: -7241492849452499657, guid: 6dc151761b90e494295442af3bc2f827, type: 3}
+  - {fileID: -3324982837959096817, guid: 963b200ce67fee3459d00f6f7343bae7, type: 3}
+  - {fileID: -5536162176624888260, guid: 7042d2cb7bd51f24b87844f893c9571d, type: 3}
+  - {fileID: -6176749193863806790, guid: fa971433a4eaede41a48e280f8ecc71e, type: 3}
+  - {fileID: -8361188048454911780, guid: e22f105f9e00cf747b9feeb834573ee5, type: 3}
+  - {fileID: 4003665786787955396, guid: 0ca4fc919dd52384f91cebbac8a3fab0, type: 3}
+  - {fileID: -7545060183570270127, guid: f285cf0eeae77664cac0284fdb63d6d7, type: 3}
+  - {fileID: -6455872587271235490, guid: fbffaee4bb39efc4abe11eb5929ceec4, type: 3}
+  - {fileID: 8244308328921471938, guid: 0c00bab27e1902141b3c7c470463bdde, type: 3}
+  - {fileID: -6987125621869866042, guid: d63d20678e5a9194a859baac61add28e, type: 3}
   charactersList:
     characters: []
 --- !u!4 &1177966767

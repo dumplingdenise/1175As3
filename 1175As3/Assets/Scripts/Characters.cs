@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Characters : MonoBehaviour
@@ -19,8 +20,8 @@ public class Characters : MonoBehaviour
         public int maxHealth;
         public int armorRating;
         public string characterSpriteName;
-        public Sprite characterSprite;
-        /*public List<Sprite> characterSprites;*/
+        public Sprite defaultCharacterSprite; // for the normal sprite
+        public Dictionary<string, List<Sprite>> movementSprite = new(); // for sprites like walking, jumping, etc
     }
 
     [System.Serializable]
@@ -87,15 +88,39 @@ public class Characters : MonoBehaviour
                 maxHealth = int.Parse(parts[4]),
                 armorRating = int.Parse(parts[5]),
                 characterSpriteName = parts[6],
-                /*characterSprites = new List<Sprite>()*/
+                movementSprite = new Dictionary<string, List<Sprite>>()
             };
 
             // get all the sprites related to that character based on the sprite name in excel
-            /*foreach (var sprite in allCharacterSprites)
+            foreach (var sprite in allCharacterSprites)
             {
-                if ()
-            }*/
+                if (!sprite.name.StartsWith(charactersList.characters[index].characterSpriteName))
+                {
+                    continue;
+                }
 
+                string suffix = sprite.name.Substring(charactersList.characters[index].characterSpriteName.Length).TrimStart('_');
+
+                if (suffix == "0")
+                {
+                    charactersList.characters[index].defaultCharacterSprite = sprite;
+                    continue;
+                }
+
+                string key = suffix.Split('_')[0];
+
+                if (!charactersList.characters[index].movementSprite.ContainsKey(key))
+                {
+                    charactersList.characters[index].movementSprite[key] = new List<Sprite>();
+                }
+
+                charactersList.characters[index].movementSprite[key].Add(sprite);
+            }
+
+            foreach (var key in charactersList.characters[index].movementSprite.Keys.ToList())
+            {
+                charactersList.characters[index].movementSprite[key] = charactersList.characters[index].movementSprite[key].OrderBy(x => x.name).ToList();
+            }
             index++;
         }
     }
