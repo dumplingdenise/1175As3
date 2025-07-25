@@ -120,7 +120,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public void OnPlayButtonClick()
     {
-        SceneManager.LoadScene("GameScene"); // to be change once the game scene is created
+        SceneManager.LoadScene("WeaponSelection"); // to be change once the game scene is created
 
     }
 
