@@ -7,8 +7,10 @@ public class CharacterSelectionManager : MonoBehaviour
 {
     public Image CharacterPortrait;
     public TextMeshProUGUI CharacterName;
+    public TextMeshProUGUI CharacterDescription;
     public TextMeshProUGUI CharacterHealth;
     public TextMeshProUGUI CharacterSpeed;
+    public TextMeshProUGUI CharacterArmorRating;
     public Button LeftButton;
     public Button RightButton;
     public Button PlayButton;
@@ -54,13 +56,17 @@ public class CharacterSelectionManager : MonoBehaviour
         Characters.Character selectedCharacter = allCharacters[currentCharacterIndex];
 
         //Update Text
-        CharacterPortrait.sprite = selectedCharacter.characterSprite;
+        CharacterPortrait.sprite = selectedCharacter.defaultCharacterSprite;
 
         CharacterName.text = selectedCharacter.characterName;
+
+        CharacterDescription.text = selectedCharacter.description;
 
         CharacterHealth.text = "Health:" + selectedCharacter.maxHealth.ToString();
 
         CharacterSpeed.text = "Speed:" + selectedCharacter.movementSpeed.ToString();
+
+        CharacterArmorRating.text = "Armor Rating:" + selectedCharacter.armorRating.ToString();
     }
 
     public void OnLeftButtonClick()
