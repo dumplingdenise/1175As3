@@ -99,27 +99,28 @@ public class Characters : MonoBehaviour
                     continue;
                 }
 
-                string suffix = sprite.name.Substring(charactersList.characters[index].characterSpriteName.Length).TrimStart('_');
+                string suffix = sprite.name.Substring(charactersList.characters[index].characterSpriteName.Length).TrimStart('_'); // extract 
 
-                if (suffix == "0")
+                if (suffix == "0") // if the suffix is exactly 0 = to defaultCharacterSprite
                 {
                     charactersList.characters[index].defaultCharacterSprite = sprite;
                     continue;
                 }
 
+                // extract key from suffix
                 string key = suffix.Split('_')[0];
 
                 if (!charactersList.characters[index].movementSprite.ContainsKey(key))
                 {
-                    charactersList.characters[index].movementSprite[key] = new List<Sprite>();
+                    charactersList.characters[index].movementSprite[key] = new List<Sprite>(); // create new list if key does not exist
                 }
 
-                charactersList.characters[index].movementSprite[key].Add(sprite);
+                charactersList.characters[index].movementSprite[key].Add(sprite); // add sprite to the list
             }
 
             foreach (var key in charactersList.characters[index].movementSprite.Keys.ToList())
             {
-                charactersList.characters[index].movementSprite[key] = charactersList.characters[index].movementSprite[key].OrderBy(x => x.name).ToList();
+                charactersList.characters[index].movementSprite[key] = charactersList.characters[index].movementSprite[key].OrderBy(x => x.name).ToList(); // sort the list by asceding order
             }
             index++;
         }
