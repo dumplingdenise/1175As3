@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Characters : MonoBehaviour
 {
 
-    public TextAsset textAssetData;
-    public Sprite[] characterSprites;
+    /*public TextAsset textAssetData;*/
+    public Sprite[] allCharacterSprites;
 
     [System.Serializable]
     public class Character
@@ -15,9 +17,10 @@ public class Characters : MonoBehaviour
         public string description;
         public float movementSpeed;
         public int maxHealth;
-        /*public string initialWeaponId;*/
+        public int armorRating;
         public string characterSpriteName;
         public Sprite characterSprite;
+        /*public List<Sprite> characterSprites;*/
     }
 
     [System.Serializable]
@@ -42,47 +45,58 @@ public class Characters : MonoBehaviour
 
     void readCSV()
     {
-        string[] data = textAssetData.text.Split(new string[] {"\n" }, StringSplitOptions.RemoveEmptyEntries); // split the file by rows and avoid empty rows
+        string filePath = Application.dataPath + "/characters.csv";
 
-
-
-        if (data == null || data.Length <= 1)
+        if (!File.Exists(filePath))
         {
-            Debug.LogError("File not found or no data after header");
+            Debug.LogError("CHARACTER CSV FILE NOT FOUND");
             return;
         }
 
-        charactersList.characters = new Character[data.Length - 1]; // subtract 1 for the header row
+        string[] lines = File.ReadAllLines(filePath);
 
-        for (int i = 1; i < data.Length; i++) // skip header
+
+        // to count number of elements inside the files excluding header & empty lines
+        int count = 0;
+        for (int i = 1; i < lines.Length; i++)
         {
-            string line = data[i].Trim();
-            if (string.IsNullOrEmpty(line)) continue;
-
-            string[] parts = line.Split(',');
-
-            charactersList.characters[i - 1] = new Character();
-
-            charactersList.characters[i - 1].id = parts[0];
-            charactersList.characters[i - 1].characterName = parts[1];
-            charactersList.characters[i - 1].description = parts[2];
-            charactersList.characters[i- 1].movementSpeed = float.Parse(parts[3]);
-            charactersList.characters[i - 1].maxHealth = int.Parse(parts[4]);
-            /*charactersList.characters[i].initialWeaponId = parts[5];*/
-            charactersList.characters[i - 1].characterSpriteName = parts[5];
-            
-            foreach (var charSprite in characterSprites)
+            if (!string.IsNullOrEmpty(lines[i]))
             {
-                string characterSprite = charSprite.name;
-                if (characterSprite == parts[5])
-                {
-                    charactersList.characters[i - 1].characterSprite = charSprite;
-                }
-                else
-                {
-                    Debug.LogError("no sprite found");
-                }
+                count++;
             }
+        }
+
+        charactersList.characters = new Character[count];
+
+        int index = 0; // starts from index 0 of the array
+        for (int i = 1; i < lines.Length; i++)
+        {
+            if (string.IsNullOrEmpty(lines[i])) // check if is empty line
+            {
+                continue; // if empty skip rest of code and go to next iteration
+            }
+
+            string[] parts = lines[i].Split(",");
+
+            charactersList.characters[index] = new Character()
+            {
+                id = parts[0],
+                characterName = parts[1],
+                description = parts[2],
+                movementSpeed = float.Parse(parts[3]),
+                maxHealth = int.Parse(parts[4]),
+                armorRating = int.Parse(parts[5]),
+                characterSpriteName = parts[6],
+                /*characterSprites = new List<Sprite>()*/
+            };
+
+            // get all the sprites related to that character based on the sprite name in excel
+            /*foreach (var sprite in allCharacterSprites)
+            {
+                if ()
+            }*/
+
+            index++;
         }
     }
 }
