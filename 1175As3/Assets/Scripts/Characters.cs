@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -108,7 +108,8 @@ public class Characters : MonoBehaviour
                 }
 
                 // extract key from suffix
-                string key = suffix.Split('_')[0];
+                /*string key = suffix.Split('_')[0];*/
+                string key = new string(suffix.TakeWhile(char.IsLetter).ToArray());
 
                 if (!charactersList.characters[index].movementSprite.ContainsKey(key))
                 {
@@ -122,6 +123,22 @@ public class Characters : MonoBehaviour
             {
                 charactersList.characters[index].movementSprite[key] = charactersList.characters[index].movementSprite[key].OrderBy(x => x.name).ToList(); // sort the list by asceding order
             }
+
+            // checking for sprites
+
+            Debug.Log($"--- Loading Sprites for {charactersList.characters[index].characterName} ---");
+
+            foreach (var key in charactersList.characters[index].movementSprite.Keys)
+            {
+                List<Sprite> frames = charactersList.characters[index].movementSprite[key];
+                Debug.Log($"Animation key: {key} → {frames.Count} sprites");
+
+                foreach (var sprite in frames)
+                {
+                    Debug.Log($"    Frame: {sprite.name}");
+                }
+            }
+
             index++;
         }
     }

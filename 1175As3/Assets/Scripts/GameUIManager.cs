@@ -13,11 +13,27 @@ public class GameUIManager : MonoBehaviour
     public Button ResumeButton;
     public Button MainMenuButton;
 
+    public TextMeshProUGUI HealthScore;
+
+    public Slider ArmorRatingSlider;
+    public TextMeshProUGUI ArmorRating;
+
+    /*private Characters.Character playerCharacter;*/
+    private int currentHealth;
+    private int currentArmor;
+
     public void UpdateHealth(int currentHealth, int maxHealth)
     {
        HealthBarSlider.maxValue = maxHealth; // set maximum value of the health bar
 
        HealthBarSlider.value = currentHealth; // set current value of the health bar
+    }
+
+    public void UpdateArmor(int currentArmor, int maxArmor)
+    {
+        ArmorRatingSlider.maxValue = maxArmor; // set maximum value of the 
+
+        ArmorRatingSlider.value = currentArmor; // set current value of the 
     }
 
     public void UpdateScore(int score)
@@ -55,7 +71,14 @@ public class GameUIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        currentHealth = SelectedCharacterManager.instance.selectedCharacter.maxHealth;
+        HealthScore.text = currentHealth.ToString();
+
+        currentArmor = SelectedCharacterManager.instance.selectedCharacter.armorRating;
+        ArmorRating.text = currentArmor.ToString();
+
+        UpdateHealth(currentHealth, SelectedCharacterManager.instance.selectedCharacter.maxHealth);
+        UpdateArmor(currentArmor, SelectedCharacterManager.instance.selectedCharacter.armorRating);
     }
 
     // Update is called once per frame
