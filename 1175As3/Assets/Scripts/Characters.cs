@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class Characters : MonoBehaviour
@@ -9,6 +10,7 @@ public class Characters : MonoBehaviour
 
     /*public TextAsset textAssetData;*/
     public Sprite[] allCharacterSprites;
+    public AnimationClip[] allCharacterAnimations;
 
     [System.Serializable]
     public class Character
@@ -21,7 +23,11 @@ public class Characters : MonoBehaviour
         public int armorRating;
         public string characterSpriteName;
         public Sprite defaultCharacterSprite; // for the normal sprite
-        public Dictionary<string, List<Sprite>> movementSprite = new(); // for sprites like walking, jumping, etc
+        /*public Dictionary<string, List<Sprite>> movementSprite = new();*/ // for sprites like walking, jumping, etc
+
+        public AnimationClip idleAnimation;
+        public AnimationClip runAnimation;
+        /*public AnimationClip injuredAnimation;*/
     }
 
     [System.Serializable]
@@ -88,7 +94,7 @@ public class Characters : MonoBehaviour
                 maxHealth = int.Parse(parts[4]),
                 armorRating = int.Parse(parts[5]),
                 characterSpriteName = parts[6],
-                movementSprite = new Dictionary<string, List<Sprite>>()
+                /*movementSprite = new Dictionary<string, List<Sprite>>()*/
             };
 
             // get all the sprites related to that character based on the sprite name in excel
@@ -98,45 +104,28 @@ public class Characters : MonoBehaviour
                 {
                     continue;
                 }
+                charactersList.characters[index].defaultCharacterSprite = sprite;
+            }
 
-                string suffix = sprite.name.Substring(charactersList.characters[index].characterSpriteName.Length).TrimStart('_'); // extract 
-
-                if (suffix == "0") // if the suffix is exactly 0 = to defaultCharacterSprite
+            foreach (var animation in allCharacterAnimations) // assign the right animation clip to the right character
+            {
+                string name = charactersList.characters[index].characterSpriteName;
+                if (!animation.name.StartsWith(charactersList.characters[index].characterSpriteName))
                 {
-                    charactersList.characters[index].defaultCharacterSprite = sprite;
                     continue;
                 }
-
-                // extract key from suffix
-                /*string key = suffix.Split('_')[0];*/
-                string key = new string(suffix.TakeWhile(char.IsLetter).ToArray());
-
-                if (!charactersList.characters[index].movementSprite.ContainsKey(key))
+                else
                 {
-                    charactersList.characters[index].movementSprite[key] = new List<Sprite>(); // create new list if key does not exist
+                    if (animation.name == $"{name}_Idle")
+                    {
+                        charactersList.characters[index].idleAnimation = animation;
+                    }
+                    if (animation.name == $"{name}_Run")
+                    {
+                        charactersList.characters[index].runAnimation = animation;
+                    }
                 }
 
-                charactersList.characters[index].movementSprite[key].Add(sprite); // add sprite to the list
-            }
-
-            foreach (var key in charactersList.characters[index].movementSprite.Keys.ToList())
-            {
-                charactersList.characters[index].movementSprite[key] = charactersList.characters[index].movementSprite[key].OrderBy(x => x.name).ToList(); // sort the list by asceding order
-            }
-
-            // checking for sprites
-
-            Debug.Log($"--- Loading Sprites for {charactersList.characters[index].characterName} ---");
-
-            foreach (var key in charactersList.characters[index].movementSprite.Keys)
-            {
-                List<Sprite> frames = charactersList.characters[index].movementSprite[key];
-                Debug.Log($"Animation key: {key} → {frames.Count} sprites");
-
-                foreach (var sprite in frames)
-                {
-                    Debug.Log($"    Frame: {sprite.name}");
-                }
             }
 
             index++;
