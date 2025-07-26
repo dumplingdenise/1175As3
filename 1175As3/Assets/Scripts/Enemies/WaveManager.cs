@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    /*
+    
     // singleton pattern
     public static WaveManager Instance { get; private set; }
 
@@ -168,7 +168,7 @@ public class WaveManager : MonoBehaviour
         }
 
         // Default to random if tag is empty, "random", or not found
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
     }
 
     // this method is called by EnemyController when an enemy is defeated
@@ -214,5 +214,4 @@ public class WaveManager : MonoBehaviour
             Debug.LogError($"[WaveManager] Attempted to activate non-existent wave ID: {waveIdToActivate}");
         }
     }
-    */
 }

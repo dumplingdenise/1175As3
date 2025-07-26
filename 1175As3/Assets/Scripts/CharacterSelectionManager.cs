@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Security.Cryptography.X509Certificates;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
@@ -126,8 +127,8 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public void OnPlayButtonClick()
     {
+        SelectedCharacterManager.instance.selectedCharacter = allCharacters[currentCharacterIndex];
         SceneManager.LoadScene("WeaponSelection"); // to be change once the game scene is created
-
     }
 
     public void OnBackButtonClick()
