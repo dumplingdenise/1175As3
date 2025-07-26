@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public SpriteRenderer sr;
-    public BoxCollider2D bc;
+    private SpriteRenderer sr;
+    private BoxCollider2D bc;
 
     // player stats
     public string characterName;
@@ -18,14 +18,11 @@ public class Player : MonoBehaviour
 
     // for playermovement
     private Vector2 moveDir;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
 
-    //walking animation
-    private Sprite idleSprite;
-    private List<Sprite> walkFrames;
-    private int currentFrame = 0;
-    private float frameTimer = 0f;
-    public float frameRate = 0.1f; // Time between frames (adjust as needed)
+    //walking animation    
+    private Animator animator; // get reference to animator
+    public RuntimeAnimatorController baseController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,6 +30,7 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         // update player stats to stats of the selected character
         Characters.Character characterData = SelectedCharacterManager.instance.selectedCharacter;
@@ -50,40 +48,31 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         curArmorRating = maxArmorRating;
 
-        idleSprite = characterData.defaultCharacterSprite;
-        sr.sprite = idleSprite;
-
-        if (characterData.movementSprite.ContainsKey("walk"))
-        {
-            walkFrames = characterData.movementSprite["walk"];
-        }
-        else
-        {
-            walkFrames = new List<Sprite>();
-        }
+        sr.sprite = characterData.defaultCharacterSprite;
 
         bc.size = sr.sprite.bounds.size; // change the size of the box collider to match the size of the character sprite
 
+        // Override the animation clips
+        AnimatorOverrideController overrideController = new AnimatorOverrideController(baseController);
+        overrideController["Idle"] = characterData.idleAnimation;
+        overrideController["Run"] = characterData.runAnimation;
+        animator.runtimeAnimatorController = overrideController;
 
-        // checking for sprites
-
-        Debug.Log("Selected character: " + characterData.characterName);
-
-        if (characterData.movementSprite.ContainsKey("walk"))
+        /*Debug.Log("Using override controller:");
+        foreach (var pair in overrideController.animationClips)
         {
-            Debug.Log("Walk animation has " + characterData.movementSprite["walk"].Count + " frames");
+            Debug.Log("Clip: " + pair.name);
         }
-        else
-        {
-            Debug.LogWarning("No 'walk' animation found for this character!");
-        }
+
+        Debug.Log("Base controller: " + baseController?.name);
+        Debug.Log("Override idle: " + characterData.idleAnimation?.name);
+        Debug.Log("Override run: " + characterData.runAnimation?.name);*/
     }
 
     // Update is called once per frame
     void Update()
     {
         playerMovement();
-        AnimateMovement();
     }
 
     void playerMovement()
@@ -99,37 +88,24 @@ public class Player : MonoBehaviour
                                                                                          // moveDir * moveSpeed * Time.fixedDeltaTime calculates the changes in the position
         rb.MovePosition(newPos);
 
-    }
-
-    void AnimateMovement()
-    {
-        if (moveDir.sqrMagnitude > 0.001f && walkFrames.Count > 0)
+        // flip sprite based on direction
+        if (moveDir.x < -0.01f) // walking left
         {
-            frameTimer += Time.deltaTime;
-            if (frameTimer >= frameRate)
-            {
-                currentFrame = (currentFrame + 1) % walkFrames.Count;
-                sr.sprite = walkFrames[currentFrame];
-                frameTimer = 0f;
-            }
+            sr.flipX = true;
+        }
+        else if (moveDir.x > 0.01f) // walking right
+        { 
+            sr.flipX = false; 
+        }
 
-            // Flip sprite based on horizontal direction
-            if (moveDir.x < -0.01f)
-            {
-                sr.flipX = true;
-            }
-            else if (moveDir.x > 0.01f)
-            {
-                sr.flipX = false;
-            }
+        // for animation
+        if (vert != 0 || hori != 0)
+        {
+            animator.SetBool("isWalking", true);
         }
         else
         {
-            // Not moving → show idle sprite
-            sr.sprite = idleSprite;
-            currentFrame = 0;
-            frameTimer = 0f;
+            animator.SetBool("isWalking", false);
         }
     }
-
 }
