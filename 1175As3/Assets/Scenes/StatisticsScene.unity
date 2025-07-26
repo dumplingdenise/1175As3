@@ -486,6 +486,7 @@ GameObject:
   - component: {fileID: 506482934}
   - component: {fileID: 506482933}
   - component: {fileID: 506482932}
+  - component: {fileID: 506482936}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -576,6 +577,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &506482936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506482931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23879b15aca4134fa6c6089ab312dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesDefeatedText: {fileID: 15029759}
+  wavesCompletedText: {fileID: 265390173}
+  TotalDistanceTraveledText: {fileID: 1843274685}
+  Back2MenuBtn: {fileID: 1916096536}
 --- !u!1 &654733779
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,7 +980,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 333}
-  m_SizeDelta: {x: 835.91, y: 122}
+  m_SizeDelta: {x: 953.69, y: 122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043151385
 MonoBehaviour:
@@ -985,7 +1002,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Achievements
+  m_text: Game Statistics
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1212,7 +1229,7 @@ GameObject:
   - component: {fileID: 1648421694}
   - component: {fileID: 1648421693}
   m_Layer: 5
-  m_Name: ItemsUsedTitle
+  m_Name: TotalDistanceTraveledTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1234,8 +1251,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -104.45, y: -98}
-  m_SizeDelta: {x: 208.9, y: 50}
+  m_AnchoredPosition: {x: -208.98, y: -98}
+  m_SizeDelta: {x: 417.96, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1648421693
 MonoBehaviour:
@@ -1257,7 +1274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Items Used :'
+  m_text: 'Total Distance Traveled :'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1484,7 +1501,7 @@ GameObject:
   - component: {fileID: 1843274686}
   - component: {fileID: 1843274685}
   m_Layer: 5
-  m_Name: ItemsUsedText
+  m_Name: TotalDistanceTraveledText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1506,8 +1523,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 153.96002, y: -98}
-  m_SizeDelta: {x: 307.92, y: 50}
+  m_AnchoredPosition: {x: 182.95, y: -98}
+  m_SizeDelta: {x: 365.9, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1843274685
 MonoBehaviour:
@@ -1529,7 +1546,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ItemsUsed
+  m_text: TotalDistanceTraveled
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1691,9 +1708,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CharacterSelectionManager, Assembly-CSharp
-        m_MethodName: OnBackButtonClick
+      - m_Target: {fileID: 506482936}
+        m_TargetAssemblyTypeName: StatisticsDisplayManager, Assembly-CSharp
+        m_MethodName: BackToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
