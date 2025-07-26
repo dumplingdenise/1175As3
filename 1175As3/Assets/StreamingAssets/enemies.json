@@ -1,0 +1,24 @@
+[
+  {
+    "id": "enemy_goblin",
+    "name": "Goblin",
+    "health": 100,
+    "movementSpeed": 2.5,
+    "contactDamage": 10,
+    "bulletFiringRate": 0,
+    "movementPattern": "chasing_player",
+    "behaviour": "melee",
+    "spritePath": "goblin_sprite"
+  },
+  {
+    "id": "enemy_archer",
+    "name": "Archer",
+    "health": 80,
+    "movementSpeed": 1.5,
+    "contactDamage": 5,
+    "bulletFiringRate": 1.0,
+    "movementPattern": "random",
+    "behaviour": "ranged",
+    "spritePath": "archer_sprite"
+  }
+]
