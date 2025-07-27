@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private EnemyData enemyData; // Data loaded for this specific enemy is EnemyData
+    public EnemyData enemyData; // Data loaded for this specific enemy is EnemyData
     private float currentHealth;
     private Transform playerTransform; // reference to the player's position
 
