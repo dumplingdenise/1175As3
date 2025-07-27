@@ -14,4 +14,5 @@ public class EnemyData
     public string behaviour;
     public string spritePath; //to load the sprite dynamically
     internal object loadedSprite;
+    internal object spriteName;
 }
