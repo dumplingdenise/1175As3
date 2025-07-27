@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19486ffa1f6bfaf44bc8571cd0adef89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {x: 0, y: 0}
   movementSpeed: 7
   baseController: {fileID: 9100000, guid: 387b80719e319a745af4f037d52bcc3c, type: 2}
   animationClips:
@@ -352,6 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8774653604127712920, guid: ace938e1006a870409201b5615861d40, type: 3}
   firePoint: {fileID: 1384669523}
+  weaponSprite: {fileID: 1837345333}
+  canShoot: 0
 --- !u!1 &97950889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,6 +1361,8 @@ MonoBehaviour:
   promptPanel: {fileID: 97950889}
   playerScript: {fileID: 51758669}
   shouldFadeAndDisappear: 1
+  shootScript: {fileID: 0}
+  canShoot: 0
 --- !u!1 &1080368571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,6 +1753,8 @@ MonoBehaviour:
   promptPanel: {fileID: 97950889}
   playerScript: {fileID: 51758669}
   shouldFadeAndDisappear: 0
+  shootScript: {fileID: 51758672}
+  canShoot: 1
 --- !u!61 &1497083844
 BoxCollider2D:
   m_ObjectHideFlags: 0

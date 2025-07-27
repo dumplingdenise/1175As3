@@ -9,7 +9,8 @@ public class TutorialCharMovement : MonoBehaviour
     private SpriteRenderer sr;
 
     private Vector2 moveDir;
-    private Vector2 input;
+    public Vector2 input;
+
     public int movementSpeed = 7;
     private bool isMoving;
 
@@ -93,4 +94,6 @@ public class TutorialCharMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
     }
+
+    
 }

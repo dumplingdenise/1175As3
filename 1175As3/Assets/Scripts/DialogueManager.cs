@@ -6,6 +6,7 @@ public class DialogueManager : MonoBehaviour
 
     private NPC currentNPC;
 
+
     void Awake()
     {
         if (instance == null) instance = this;
@@ -37,6 +38,12 @@ public class DialogueManager : MonoBehaviour
     {
         currentNPC = null;
     }
+
+    public bool isDialogueOpen()
+    {
+        return currentNPC != null && currentNPC.IsDialogueActive();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

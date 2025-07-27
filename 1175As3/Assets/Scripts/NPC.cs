@@ -20,7 +20,10 @@ public class NPC : MonoBehaviour, IInteractable
 
     public TutorialCharMovement playerScript;
 
-    public bool shouldFadeAndDisappear = false; 
+    public bool shouldFadeAndDisappear = false;
+
+    public TutorialShoot shootScript; // ref to shooting script
+    public bool canShoot = false;
 
     public bool CanInteract()
     {
@@ -116,6 +119,11 @@ public class NPC : MonoBehaviour, IInteractable
         }
 
         DialogueManager.instance.ClearNPC(); 
+
+        if (canShoot && shootScript != null)
+        {
+            shootScript.canShoot = true;
+        }
     }
 
     void UpdateSpeakerUI()
@@ -156,6 +164,11 @@ public class NPC : MonoBehaviour, IInteractable
         {
             nextBtn.SetActive(!isLastLine);
         }
+    }
+
+    public bool IsDialogueActive()
+    {
+        return isDialogueActive;
     }
 
 
