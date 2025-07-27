@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         moveDir = new Vector2(hori, vert);
 
         Vector2 clampedmoveDir = moveDir.normalized;
-        Vector2 displacement = clampedmoveDir * movementSpeed * Time.deltaTime;
+        Vector2 displacement = clampedmoveDir * movementSpeed * Time.fixedDeltaTime;
          Vector2 newPos = rb.position + displacement;
         //Vector2 newPos = rb.position + clampedmoveDir * movementSpeed * Time.fixedDeltaTime; // rb.position gets the current position of the RigidBody2d component. moveDir is the direction of movement. moveSpeed determines how fast the player moves. 
                                                                                          // moveDir * moveSpeed * Time.fixedDeltaTime calculates the changes in the position

@@ -44,7 +44,12 @@ public class DynamicDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // FOR TESTING ONLY: Press 'S' to save game stats and see the debug log
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SaveGameStats();
+            Debug.Log("Attempting to save game stats via 'p' key press."); // Add this for more clarity
+        }
     }
 
     public void IncrementEnemiesDefeated()
@@ -107,6 +112,8 @@ public class DynamicDataManager : MonoBehaviour
     //save game stats to an external file
     public void SaveGameStats()
     {
+        Debug.Log("SaveGameStats method entered."); // Add this line
+
         AllGameStats allStats = ReadGameHistoryFromFile();
 
         //create instance of GameStats to hold the data
