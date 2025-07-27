@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// denise
+using System.Collections.Generic;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -24,6 +26,9 @@ public class Player : MonoBehaviour
     private Animator animator; // get reference to animator
     public RuntimeAnimatorController baseController;
 
+    // ref gameUI
+    private GameUIManager gameUIManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +36,7 @@ public class Player : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        gameUIManager = FindFirstObjectByType<GameUIManager>();
 
         // update player stats to stats of the selected character
         Characters.Character characterData = SelectedCharacterManager.instance.selectedCharacter;
@@ -73,6 +79,46 @@ public class Player : MonoBehaviour
     void Update()
     {
         playerMovement();
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            EnemyController enemyController = collision.GetComponent<EnemyController>();
+
+            int dmgTaken = 0;
+
+            dmgTaken = enemyController.enemyData.contactDamage;
+            int remainDmg;
+
+
+            if (curArmorRating > 0)
+            {
+                if (dmgTaken > curArmorRating)
+                {
+                    remainDmg = dmgTaken - curArmorRating;
+                    curArmorRating -= dmgTaken;
+
+                    currentHealth -= remainDmg;
+                }
+                else
+                {
+                    curArmorRating -= dmgTaken;
+                }
+            }
+            else
+            {
+                currentHealth -= dmgTaken;
+            }
+
+            if (currentHealth <= 0)
+            {
+                SceneManager.LoadScene("GameOverMenu");
+            }
+            gameUIManager.UpdateHealth(currentHealth, maxHealth);
+            gameUIManager.UpdateArmor(curArmorRating, maxArmorRating);
+        }
     }
 
     void playerMovement()
