@@ -32,7 +32,11 @@ public class TutorialShoot : MonoBehaviour
 
         HandleFlip();
 
-        if (Input.GetMouseButtonDown(0)) // Left-click
+        /*if (Input.GetKeyDown(KeyCode.Space)) // Left-click
+        {
+            Shoot();
+        }*/
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }

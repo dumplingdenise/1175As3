@@ -15,21 +15,17 @@ MonoBehaviour:
   lines:
   - speakerName: Slimy
     speakerPortrait: {fileID: -7409788283609738144, guid: 99c0ffbc19348a94db6d8848d8cb72b2, type: 3}
-    line: Hey there Peach!
-    autoProgress: 0
-  - speakerName: Slimy
-    speakerPortrait: {fileID: -7409788283609738144, guid: 99c0ffbc19348a94db6d8848d8cb72b2, type: 3}
-    line: Congrats on your first step!
-    autoProgress: 0
-  - speakerName: Slimy
-    speakerPortrait: {fileID: -7409788283609738144, guid: 99c0ffbc19348a94db6d8848d8cb72b2, type: 3}
-    line: Shall we move on?
-    autoProgress: 0
+    line: Yay! Congrats on making it to me!
   - speakerName: Peach
     speakerPortrait: {fileID: 8490959535584418308, guid: fb01de9ef762da943ab747d517bef1f4, type: 3}
-    line: Yes please! What's next?
-    autoProgress: 0
+    line: Thank you! What do i do now?
+  - speakerName: Slimy
+    speakerPortrait: {fileID: -7409788283609738144, guid: 99c0ffbc19348a94db6d8848d8cb72b2, type: 3}
+    line: Next, lets learn to shoot!
+  - speakerName: Slimy
+    speakerPortrait: {fileID: -7409788283609738144, guid: 99c0ffbc19348a94db6d8848d8cb72b2, type: 3}
+    line: Use your left mouse button to shoot!
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
-  voicePitch: 1
+  voicePitch: 0.5
   autoProgressDelay: 1.5

@@ -15,29 +15,21 @@ MonoBehaviour:
   lines:
   - speakerName: Boo
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
-    line: Hello! I am Boo
-    autoProgress: 0
-  - speakerName: Boo
-    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
-    line: You must be new here!
-    autoProgress: 0
-  - speakerName: Peachy
+    line: Hey! I am Boo!
+  - speakerName: Peach
     speakerPortrait: {fileID: 8490959535584418308, guid: fb01de9ef762da943ab747d517bef1f4, type: 3}
-    line: Hi ! I am Peach. Can you guide me?
-    autoProgress: 0
+    line: Hello I am Peach
+  - speakerName: Peach
+    speakerPortrait: {fileID: 8490959535584418308, guid: fb01de9ef762da943ab747d517bef1f4, type: 3}
+    line: Can you guide me?
   - speakerName: Boo
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
-    line: Sure! Lets start with movement :)
-    autoProgress: 0
+    line: Yea! Try using WASD to move around!
   - speakerName: Boo
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
-    line: Use WASD or arrow key to move around!
-    autoProgress: 0
-  - speakerName: Boo
-    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
-    line: Lets try moving to Slimey over there.
-    autoProgress: 0
+    line: Walk to Slimy, the green slime block there and he will tell you what to
+      do next!
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
-  voicePitch: 1
+  voicePitch: 0.5
   autoProgressDelay: 1.5
