@@ -6,8 +6,26 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public GameObject loadGameBtn;
+
+     void Start()
+    {
+        if (loadGameBtn != null)
+        {
+            if (DynamicDataManager.Instance != null)
+            {
+                // Set the button's active state based on whether a save file exists
+                loadGameBtn.SetActive(DynamicDataManager.Instance.DoesSaveFileExist());
+            }
+            else
+            {
+                loadGameBtn.SetActive(false);
+            }
+
+        }
+    }
     public void StartGame()
     {
+       
         // Load to a new scene by the name
         SceneManager.LoadScene("GameScene");
     }

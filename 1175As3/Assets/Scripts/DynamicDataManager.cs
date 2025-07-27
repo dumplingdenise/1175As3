@@ -247,7 +247,8 @@ public class DynamicDataManager : MonoBehaviour
         Debug.Log("New game started. All stats reset.");
     }
 
-    public bool DoesSaveFileExiat()
+    //check if file exists on disk
+    public bool DoesSaveFileExist()
     {
         string filePath = Application.persistentDataPath + "/game_stats.json";
         return File.Exists(filePath);
