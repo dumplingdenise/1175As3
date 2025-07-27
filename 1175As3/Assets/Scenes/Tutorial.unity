@@ -305,6 +305,8 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 7ed976b20f6e4d344badcc052b513fa8, type: 2}
   - {fileID: 7400000, guid: c2cf85298bd79d348a1a88337b36f22f, type: 2}
   canMove: 0
+  hasMoved: 0
+  hasShot: 0
 --- !u!95 &51758670
 Animator:
   serializedVersion: 7
@@ -1359,6 +1361,7 @@ MonoBehaviour:
   portraitImage: {fileID: 264292569}
   closeBtn: {fileID: 1659422530}
   nextBtn: {fileID: 1714387965}
+  startBtn: {fileID: 0}
   promptPanel: {fileID: 97950889}
   playerScript: {fileID: 51758669}
   shouldFadeAndDisappear: 1
@@ -1751,9 +1754,10 @@ MonoBehaviour:
   portraitImage: {fileID: 264292569}
   closeBtn: {fileID: 1659422530}
   nextBtn: {fileID: 1714387965}
+  startBtn: {fileID: 1730528399}
   promptPanel: {fileID: 97950889}
   playerScript: {fileID: 51758669}
-  shouldFadeAndDisappear: 0
+  shouldFadeAndDisappear: 1
   shootScript: {fileID: 51758672}
   canShoot: 1
 --- !u!61 &1497083844
@@ -2263,7 +2267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1730528400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2327,7 +2331,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1730528402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1497083843}
+        m_TargetAssemblyTypeName: NPC, Assembly-CSharp
+        m_MethodName: LoadNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1730528402
 MonoBehaviour:
   m_ObjectHideFlags: 0

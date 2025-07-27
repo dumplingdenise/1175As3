@@ -21,6 +21,10 @@ public class TutorialCharMovement : MonoBehaviour
 
     public bool canMove = false;
 
+    // conditional dialogue
+    public bool hasMoved = false;
+    public bool hasShot = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +44,13 @@ public class TutorialCharMovement : MonoBehaviour
     {
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
+
+        // for conditional dialogue
+        if (input != Vector2.zero)
+        {
+            hasMoved = true;
+        }
+
         // Only allow movement if canMove is true
         if (!canMove)
         {
