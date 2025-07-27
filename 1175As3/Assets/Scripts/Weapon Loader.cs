@@ -1,3 +1,5 @@
+
+
 // Assets/Scripts/Weapon Loader.cs
 using UnityEngine;
 using System.Collections.Generic; // Required for List
@@ -113,6 +115,7 @@ public class WeaponLoader : MonoBehaviour
         // Send loaded data to the selection UI
         if (weaponSelectionUI != null)
         {
+            Debug.Log($"[WeaponLoader - {gameObject.scene.name}] Initializing WeaponSelectionUI."); 
             weaponSelectionUI.InitializeWeapons(weaponList.weapons);
         }
         else
