@@ -12,12 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1ad4f03c32ae441a8b5b10f34741d0, type: 3}
   m_Name: NPCDialogue
   m_EditorClassIdentifier: 
-  npcName: Boo
-  npcPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
-  dialogueLines:
-  - Hello there! I am Boo
-  - you must be new here!
-  autoProgressLines: 0101
+  lines:
+  - speakerName: Boo
+    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
+    line: Hello! I am Boo
+    autoProgress: 0
+  - speakerName: Boo
+    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
+    line: You must be new here!
+    autoProgress: 0
+  - speakerName: Peachy
+    speakerPortrait: {fileID: 8490959535584418308, guid: fb01de9ef762da943ab747d517bef1f4, type: 3}
+    line: Hi ! I am Peach. Can you guide me?
+    autoProgress: 0
+  - speakerName: Boo
+    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
+    line: Sure! Lets start with movement :)
+    autoProgress: 0
+  - speakerName: Boo
+    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
+    line: Use WASD or arrow key to move around!
+    autoProgress: 0
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
   voicePitch: 1

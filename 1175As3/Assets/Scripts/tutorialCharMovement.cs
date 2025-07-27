@@ -18,26 +18,8 @@ public class tutorialCharMovement : MonoBehaviour
 
     public AnimationClip[] animationClips;
 
-    public LayerMask solidObjectsLayer;
-    public LayerMask interactablesLayer;
+    public bool canMove = false;
 
-/*    private bool isNearNPC = false;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("NPC")) // Make sure NPCs have the tag
-        {
-            isNearNPC = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("NPC"))
-        {
-            isNearNPC = false;
-        }
-    }*/
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -55,19 +37,19 @@ public class tutorialCharMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        input.x = Input.GetAxisRaw("Horizontal");
+        input.y = Input.GetAxisRaw("Vertical");
+        // Only allow movement if canMove is true
+        if (!canMove)
+        {
+            animation(); // still let the idle animation play
+            return;
+        }
+
         if (!isMoving)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
-
             if (input != Vector2.zero)
             {
-                /*var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;*/
-
-                /*StartCoroutine(Move(targetPos));*/
-
                 movement();
                 animation();
             }
@@ -76,12 +58,6 @@ public class tutorialCharMovement : MonoBehaviour
                 animation();
             }
         }
-
-       /* movement();
-        if (!isNearNPC)
-        {
-            movement();
-        }*/
     }
 
 
@@ -117,49 +93,4 @@ public class tutorialCharMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
     }
-    /*IEnumerator Move(Vector3 targetPos)
-{
-    isMoving = true;
-    while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, movementSpeed * Time.deltaTime);
-        yield return null;
-    }
-
-    transform.position = targetPos;
-
-    isMoving = false;
-}*/
-
-    /*    void movement()
-        {
-            float vert = Input.GetAxisRaw("Vertical");
-            float hori = Input.GetAxisRaw("Horizontal");
-
-            moveDir = new Vector2(hori, vert);
-
-            Vector2 clampedmoveDir = moveDir.normalized;
-            Vector2 newPos = rb.position + clampedmoveDir * movementSpeed * Time.fixedDeltaTime; // rb.position gets the current position of the RigidBody2d component. moveDir is the direction of movement. moveSpeed determines how fast the player moves. 
-                                                                                                 // moveDir * moveSpeed * Time.fixedDeltaTime calculates the changes in the position
-            rb.MovePosition(newPos);
-
-            // flip sprite based on direction
-            if (moveDir.x < -0.01f) // walking left
-            {
-                sr.flipX = true;
-            }
-            else if (moveDir.x > 0.01f) // walking right
-            {
-                sr.flipX = false;
-            }
-
-            if (vert != 0 || hori != 0)
-            {
-                animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-            }
-        }*/
 }
