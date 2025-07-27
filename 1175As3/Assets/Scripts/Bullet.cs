@@ -42,6 +42,11 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"[Bullet - {gameObject.name}] Hit: {other.name}");
-        Destroy(gameObject);
+
+        if (other.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }
