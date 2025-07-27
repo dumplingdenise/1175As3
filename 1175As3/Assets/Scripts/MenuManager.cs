@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
+// shumin
 public class MenuManager : MonoBehaviour
 {
     public GameObject loadGameBtn;

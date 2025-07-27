@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Security.Cryptography.X509Certificates;
 
+//shumin, denise
 public class CharacterSelectionManager : MonoBehaviour
 {
     public Image CharacterPortrait;

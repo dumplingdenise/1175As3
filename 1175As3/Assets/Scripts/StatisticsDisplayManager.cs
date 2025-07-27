@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//shumin
 public class StatisticsDisplayManager : MonoBehaviour
 {
     public TextMeshProUGUI enemiesDefeatedText;

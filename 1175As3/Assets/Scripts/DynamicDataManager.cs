@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 
+//shumin
 // this class will hold the statistics that will be save to a file
 [System.Serializable]
 public class GameStats

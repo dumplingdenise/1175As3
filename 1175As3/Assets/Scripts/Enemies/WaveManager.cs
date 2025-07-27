@@ -231,11 +231,37 @@ public class WaveManager : MonoBehaviour
     // Call this method from EnemyController when an enemy is defeated
     public void OnEnemyDefeated()
     {
+        // to update dynamic data -- shumin
+        // --- DynamicDataManager Integration: Increment Enemies Defeated
+        if (DynamicDataManager.Instance != null)
+        {
+            DynamicDataManager.Instance.IncrementEnemiesDefeated();
+            Debug.Log($"[DynamicDataManager] Enemies Defeated: {DynamicDataManager.Instance.GetEnemiesDefeated()}"); // Log current count -- can be removed afterwards
+        }
+        else
+        {
+            //can be removed afterwards just to check :)
+            Debug.LogError("DynamicDataManager not found! Cannot increment enemies defeated.");
+        }
+
         enemiesRemainingInWave--;
         Debug.Log($"[WaveManager] Enemy defeated. Enemies remaining in wave: {enemiesRemainingInWave}");
         if (enemiesRemainingInWave <= 0)
         {
             Debug.Log("[WaveManager] Wave cleared! Starting next wave soon...");
+
+            // to update dynamic data -- shumin
+            // --- DynamicDataManager Integration: Increment Waves Defeated
+            if(DynamicDataManager.Instance != null)
+            {
+                DynamicDataManager.Instance.IncrementWavesCompleted();
+                Debug.Log($"[DynamicDataManager] Waves Completed: {DynamicDataManager.Instance.GetWavesCompleted()}"); // Log current count -- same for this
+            }
+            else
+            {
+                Debug.LogError("DynamicDataManager not found! Cannot increment waves completed."); // this too :)
+            }
+
             // You can add a delay here before starting the next wave, e.g., using a coroutine:
             // StartCoroutine(StartNextWaveAfterDelay(3f)); // 3-second delay
             StartNextWave();
