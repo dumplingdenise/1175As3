@@ -36,6 +36,11 @@ public class Characters : MonoBehaviour
     }
 
     public characterList charactersList = new characterList();
+    internal string characterName;
+    internal float movementSpeed;
+    internal int maxHealth;
+    internal int armorRating;
+    internal object defaultCharacterSprite;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

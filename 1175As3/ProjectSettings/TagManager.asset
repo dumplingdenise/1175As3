@@ -9,6 +9,7 @@ TagManager:
   - left
   - random
   - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

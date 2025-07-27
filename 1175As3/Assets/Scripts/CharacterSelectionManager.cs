@@ -21,6 +21,11 @@ public class CharacterSelectionManager : MonoBehaviour
 
     private Characters.Character[] allCharacters; // hold all character data
     private int currentCharacterIndex = 0; // track which character is currently shown
+    internal string characterName;
+    internal float movementSpeed;
+    internal int maxHealth;
+    internal int armorRating;
+    internal object defaultCharacterSprite;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
