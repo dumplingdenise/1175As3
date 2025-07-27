@@ -1,3 +1,4 @@
+// shumin
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,6 +28,8 @@ public class GameUIManager : MonoBehaviour
        HealthBarSlider.maxValue = maxHealth; // set maximum value of the health bar
 
        HealthBarSlider.value = currentHealth; // set current value of the health bar
+
+       HealthScore.text = currentHealth.ToString();
     }
 
     public void UpdateArmor(int currentArmor, int maxArmor)
@@ -34,6 +37,8 @@ public class GameUIManager : MonoBehaviour
         ArmorRatingSlider.maxValue = maxArmor; // set maximum value of the 
 
         ArmorRatingSlider.value = currentArmor; // set current value of the 
+
+        ArmorRating.text = currentArmor.ToString();
     }
 
     public void UpdateScore(int score)
