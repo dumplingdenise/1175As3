@@ -130,7 +130,7 @@ public class DynamicDataManager : MonoBehaviour
         allStats.statsEntries.Add(saveStats);
 
         //convert whole list to JSON
-        string json = JsonUtility.ToJson(allStats);
+        string json = JsonUtility.ToJson(allStats, true);
 
         // Define the file path where the JSON data will be saved.
         string filePath = Application.persistentDataPath + "/game_stats.json";
