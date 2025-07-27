@@ -84,9 +84,19 @@ public class Player : MonoBehaviour
         moveDir = new Vector2(hori, vert);
 
         Vector2 clampedmoveDir = moveDir.normalized;
-        Vector2 newPos = rb.position + clampedmoveDir * movementSpeed * Time.fixedDeltaTime; // rb.position gets the current position of the RigidBody2d component. moveDir is the direction of movement. moveSpeed determines how fast the player moves. 
+        Vector2 displacement = clampedmoveDir * movementSpeed * Time.deltaTime;
+         Vector2 newPos = rb.position + displacement;
+        //Vector2 newPos = rb.position + clampedmoveDir * movementSpeed * Time.fixedDeltaTime; // rb.position gets the current position of the RigidBody2d component. moveDir is the direction of movement. moveSpeed determines how fast the player moves. 
                                                                                          // moveDir * moveSpeed * Time.fixedDeltaTime calculates the changes in the position
         rb.MovePosition(newPos);
+
+        //Track distance traveled -> dynamic data
+        //only add distance is player moved,  And ensure DynamicDataManager.Instance exists before trying to use it.
+        if (displacement.magnitude >0 && DynamicDataManager.Instance != null)
+        {
+            DynamicDataManager.Instance.AddDistanceTraveled(displacement.magnitude);
+
+        }
 
         // flip sprite based on direction
         if (moveDir.x < -0.01f) // walking left

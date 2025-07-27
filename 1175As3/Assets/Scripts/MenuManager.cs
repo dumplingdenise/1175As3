@@ -20,4 +20,9 @@ public class MenuManager : MonoBehaviour
 #endif
 
     }
+
+    public void SeeStats()
+    {
+        SceneManager.LoadScene("StatisticsScene");
+    }
 }

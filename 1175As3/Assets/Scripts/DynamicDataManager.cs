@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
+using System;
 
 public class DynamicDataManager : MonoBehaviour
 {
@@ -76,19 +78,52 @@ public class DynamicDataManager : MonoBehaviour
         return totaldistancetraveled;
     }
 
+    private AllGameStats ReadGameHistoryFromFile()
+    {
+        //define the file pah
+        string filePath = Application.persistentDataPath + "/game_stats.json";
+
+        //if file existm read the content
+        if (File.Exists(filePath))
+        {
+            // read entire json content from the file
+            string json = File.ReadAllText(filePath);
+
+            //convert json string back to AllGameStas object
+            AllGameStats loadedAllStats = JsonUtility.FromJson<AllGameStats>(json);
+
+            //return loaded AllGameStats object
+            return loadedAllStats;
+        }
+        else
+        {
+            // Initialize the AllGameStats container with an empty list, ready for new entries
+            AllGameStats newGameHistory = new AllGameStats { statsEntries = new List<GameStats>() };
+
+            return newGameHistory;
+        }
+    }
+
     //save game stats to an external file
     public void SaveGameStats()
     {
+        AllGameStats allStats = ReadGameHistoryFromFile();
+
         //create instance of GameStats to hold the data
         GameStats saveStats = new GameStats();
+
+        saveStats.timestamp = System.DateTime.Now.ToString();
 
         //Populate the GameStats object with current manager's data
         saveStats.enemiesDefeated = enemiesdefeated;
         saveStats.wavescompleted = wavescompleted;
-        saveStats.totaldistancetraveled= totaldistancetraveled;
+        saveStats.totaldistancetraveled = totaldistancetraveled;
 
-        // convert GameStats object into a Json formatted string
-        string json = JsonUtility.ToJson(saveStats);
+        //add current stats to the historical list
+        allStats.statsEntries.Add(saveStats);
+
+        //convert whole list to JSON
+        string json = JsonUtility.ToJson(allStats);
 
         // Define the file path where the JSON data will be saved.
         string filePath = Application.persistentDataPath + "/game_stats.json";
@@ -96,6 +131,7 @@ public class DynamicDataManager : MonoBehaviour
         // Write the JSON string to the specified file path
         File.WriteAllText(filePath, json);
         Debug.Log("Game states saved to: " + filePath);
+
     }
 
     //load GameStats
@@ -108,13 +144,29 @@ public class DynamicDataManager : MonoBehaviour
         {
             string json = File.ReadAllText(filePath);
 
-            //specify the type of object to convert
-            GameStats loadstats = JsonUtility.FromJson<GameStats>(json);
+            //Convert the JSON into an AllGameStats object, as the file now stores history
+            AllGameStats loadedAllStatsHistory = JsonUtility.FromJson<AllGameStats>(json);
 
-            // Update the DynamicDataManager's variables with the loaded data.
-            enemiesdefeated = loadstats.enemiesDefeated;
-            wavescompleted = loadstats.wavescompleted;
-            totaldistancetraveled = loadstats.totaldistancetraveled;
+            // Check if there are any game stats entries in the loaded history.
+            if (loadedAllStatsHistory != null && loadedAllStatsHistory.statsEntries.Count > 0)
+            {
+                // Get the last (most recent) GameStats entry from the history.
+                GameStats latestStats = loadedAllStatsHistory.statsEntries[loadedAllStatsHistory.statsEntries.Count - 1];
+
+                // Update the DynamicDataManager's variables with the loaded data.
+                enemiesdefeated = latestStats.enemiesDefeated;
+                wavescompleted = latestStats.wavescompleted;
+                totaldistancetraveled = latestStats.totaldistancetraveled;
+            }
+            else
+            {
+                Debug.LogWarning("Save file found but no game stats entires were present");
+
+                // reset current stats to 0.
+                enemiesdefeated = 0;
+                wavescompleted = 0;
+                totaldistancetraveled = 0;
+            }
 
             Debug.Log("Game stats loaded from: " + filePath);
         }
@@ -132,5 +184,15 @@ public class GameStats
     public int enemiesDefeated;
     public int wavescompleted;
     public float totaldistancetraveled;
+
+    // Timestamp for when this specific game session's data was recorded.
+    public string timestamp;
+
+}
+
+[System.Serializable]
+public class AllGameStats
+{
+    public List<GameStats> statsEntries;
 
 }
