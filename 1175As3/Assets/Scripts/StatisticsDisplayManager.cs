@@ -13,6 +13,16 @@ public class StatisticsDisplayManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        UpdateDisplay();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+   public void UpdateDisplay()
+    {
         // check if the DynamicDataManager instance is available
         if (DynamicDataManager.Instance != null)
         {
@@ -29,12 +39,6 @@ public class StatisticsDisplayManager : MonoBehaviour
         {
             Debug.LogError("DynamucDataManager not found! Statistics cannot be displayed.");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void BackToMainMenu()

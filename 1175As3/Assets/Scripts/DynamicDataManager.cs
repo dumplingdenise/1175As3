@@ -28,10 +28,8 @@ public class DynamicDataManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Initialize the statistics
-        enemiesdefeated = 0;
-        wavescompleted = 0;
-        totaldistancetraveled = 0;
+        // dynamic data are loaded automatically when the game starts
+        LoadGameStats();
        
     }
 
@@ -44,7 +42,7 @@ public class DynamicDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // FOR TESTING ONLY: Press 'S' to save game stats and see the debug log
+        // FOR TESTING ONLY:
         if (Input.GetKeyDown(KeyCode.P))
         {
             SaveGameStats();
@@ -55,17 +53,35 @@ public class DynamicDataManager : MonoBehaviour
     public void IncrementEnemiesDefeated()
     {
         enemiesdefeated++;
+
+        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
+        if (displayManager != null) // Explicit null check
+        {
+            displayManager.UpdateDisplay();
+        }
     }
 
     public void IncrementWavesCompleted()
     {
         wavescompleted++;
+
+        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
+        if (displayManager != null) // Explicit null check
+        {
+            displayManager.UpdateDisplay();
+        }
     }
 
     //add the distance to the total distance traveled
     public void AddDistanceTraveled(float distance)
     {
         totaldistancetraveled += distance;
+
+        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
+        if (displayManager != null) // Explicit null check
+        {
+            displayManager.UpdateDisplay();
+        }
     }
 
     public int GetEnemiesDefeated()
@@ -130,7 +146,7 @@ public class DynamicDataManager : MonoBehaviour
         allStats.statsEntries.Add(saveStats);
 
         //convert whole list to JSON
-        string json = JsonUtility.ToJson(allStats);
+        string json = JsonUtility.ToJson(allStats, true);
 
         // Define the file path where the JSON data will be saved.
         string filePath = Application.persistentDataPath + "/game_stats.json";
@@ -175,12 +191,67 @@ public class DynamicDataManager : MonoBehaviour
                 totaldistancetraveled = 0;
             }
 
+            StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
+            if (displayManager != null) // Explicit null check
+            {
+                displayManager.UpdateDisplay();
+            }
+
             Debug.Log("Game stats loaded from: " + filePath);
         }
         else
         {
             Debug.LogWarning("No save file found at: " + filePath);
+
+            StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
+            if (displayManager != null) // Explicit null check
+            {
+                displayManager.UpdateDisplay();
+            }
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        SaveGameStats();
+        Debug.Log("Game stats automatically saved on application quit.");
+    }
+
+    public void StartNewGame()
+    {
+        // Reset current in-memory stats to zero
+        enemiesdefeated = 0;
+        wavescompleted = 0;
+        totaldistancetraveled = 0f;
+
+        // Define the file path for the save file
+        string filePath = Application.persistentDataPath + "/game_stats.json";
+
+        // Delete the existing save file to ensure a truly fresh start
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("Olf file deleted: " + filePath);
+        }
+        else
+        {
+            Debug.Log("No existing game stats file found to delete for new game.");
+        }
+
+        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
+        if (displayManager != null) // Explicit null check
+        {
+            displayManager.UpdateDisplay();
+        }
+
+        Debug.Log("New game started. All stats reset.");
+    }
+
+    //check if file exists on disk
+    public bool DoesSaveFileExist()
+    {
+        string filePath = Application.persistentDataPath + "/game_stats.json";
+        return File.Exists(filePath);
     }
 }
 
