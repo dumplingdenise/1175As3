@@ -57,4 +57,11 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("StatisticsScene");
     }
 
+    // Call this function to load the "Tutorial" scene
+    public void LoadTutorialScene()
+    {
+        SceneManager.LoadScene("Tutorial"); // "Tutorial" should be the exact name of your scene
+    }
+
+
 }
