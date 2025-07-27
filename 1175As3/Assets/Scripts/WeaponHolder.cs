@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class WeaponHolder : MonoBehaviour
 {
@@ -181,4 +181,4 @@ public class WeaponHolder : MonoBehaviour
             }
         }
     }
-}
+}*/
