@@ -16,6 +16,17 @@ public class GameOverUIManager : MonoBehaviour
 
     public void OnBackToMenuButtonClick()
     {
+        //ensure dynamic datamanager instance exist before trying to save
+        if(DynamicDataManager.Instance != null)
+        {
+            DynamicDataManager.Instance.SaveGameStats();
+            Debug.Log("Game stats saved when returning to main menu from Game Over screen.");
+        }
+        else
+        {
+            Debug.LogError("DynamicDataManager instance not found! Cannot save game stats.");
+        }
+
         SceneManager.LoadScene("StartGameMenu");
     }
 

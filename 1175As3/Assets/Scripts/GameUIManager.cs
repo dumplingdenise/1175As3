@@ -64,6 +64,17 @@ public class GameUIManager : MonoBehaviour
 
     public void OnBack2MainMenuButtonClick()
     {
+        // Ensure DynamicDataManager instance exists before trying to save
+        if (DynamicDataManager.Instance != null)
+        {
+            DynamicDataManager.Instance.SaveGameStats(); // This line saves the game data
+            Debug.Log("Game stats saved when returning to main menu from in-game.");
+        }
+        else
+        {
+            Debug.LogError("DynamicDataManager instance not found! Cannot save game stats.");
+        }
+
         Time.timeScale = 1.0f; //ensure game time is normal
         SceneManager.LoadScene("StartGameMenu");
     }

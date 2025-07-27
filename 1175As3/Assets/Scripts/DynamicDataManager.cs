@@ -63,12 +63,12 @@ public class DynamicDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // FOR TESTING ONLY:
+      /*  // FOR TESTING ONLY:
         if (Input.GetKeyDown(KeyCode.P))
         {
             SaveGameStats();
             Debug.Log("Attempting to save game stats via 'p' key press."); 
-        }
+        } */
     }
 
     public void IncrementEnemiesDefeated()
