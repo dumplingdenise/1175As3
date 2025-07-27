@@ -16,15 +16,7 @@ public class TutorialBullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
-/*        if (playerScript.input.x < -0.01f)
-        {
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
-        }
-        else if (playerScript.input.x > 0.01f)
-        {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
-        }*/
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 }
 

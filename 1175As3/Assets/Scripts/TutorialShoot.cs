@@ -12,6 +12,7 @@ public class TutorialShoot : MonoBehaviour
 
     private TutorialCharMovement playerScript;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -40,13 +41,11 @@ public class TutorialShoot : MonoBehaviour
     {
         if (playerScript.input.x < -0.01f)
         {
-            weapon.localRotation = Quaternion.Euler(0, 180, 0);
-            /*weaponSprite.flipX = true;*/
+            weapon.localRotation = Quaternion.Euler(0, 0, 90);
         }
         else if (playerScript.input.x > 0.01f)
         {
-            weapon.localRotation = Quaternion.Euler(0, 0, 0);
-            /*weaponSprite.flipX = false;*/
+            weapon.localRotation = Quaternion.Euler(0, 0, -90);
         }
     }
 
