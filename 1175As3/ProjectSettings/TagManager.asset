@@ -8,6 +8,7 @@ TagManager:
   - top
   - left
   - random
+  - Bullet
   layers:
   - Default
   - TransparentFX
