@@ -5,7 +5,8 @@ public class TutorialShoot : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
 
-    public SpriteRenderer weaponSprite;
+    /*public SpriteRenderer weaponSprite;*/
+    public Transform weapon;
 
     public bool canShoot = false;
 
@@ -15,7 +16,7 @@ public class TutorialShoot : MonoBehaviour
     private void Start()
     {
         playerScript = GetComponent<TutorialCharMovement>();
-        weaponSprite = GetComponent<SpriteRenderer>();
+        /*weaponSprite = GetComponentInChildren<SpriteRenderer>();*/
     }
     void Update()
     {
@@ -27,9 +28,25 @@ public class TutorialShoot : MonoBehaviour
         {
             return;
         }
+
+        HandleFlip();
+
         if (Input.GetMouseButtonDown(0)) // Left-click
         {
             Shoot();
+        }
+    }
+    void HandleFlip()
+    {
+        if (playerScript.input.x < -0.01f)
+        {
+            weapon.localRotation = Quaternion.Euler(0, 180, 0);
+            /*weaponSprite.flipX = true;*/
+        }
+        else if (playerScript.input.x > 0.01f)
+        {
+            weapon.localRotation = Quaternion.Euler(0, 0, 0);
+            /*weaponSprite.flipX = false;*/
         }
     }
 
