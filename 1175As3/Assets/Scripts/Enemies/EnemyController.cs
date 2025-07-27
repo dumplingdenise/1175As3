@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private EnemyData enemyData; // data loaded for this specific enemy
+    private EnemyData enemyData; // Data loaded for this specific enemy is EnemyData
     private float currentHealth;
     private Transform playerTransform; // reference to the player's position
 
-    // use layer mask to define what layers the enemy can detect for collision
+    // use layer mask to define what layers the enemy can detect for collision (currently unused)
     public LayerMask playerLayer;
 
+    // reference to the sprite renderer
+    private SpriteRenderer sr; // Declare it here
+
+    void Awake()
+    {
+        // Get existing SpriteRenderer or add one if not present
+        sr = GetComponent<SpriteRenderer>();
+        if (sr == null)
+        {
+            sr = gameObject.AddComponent<SpriteRenderer>();
+            Debug.LogWarning($"[EnemyController] Added missing SpriteRenderer to {gameObject.name}.", this);
+        }
+    }
+
     // initialize the enemy with its data
-    public void Initialize(EnemyData data)
+    public void Initialize(EnemyData data) // Correctly expects EnemyData
     {
         enemyData = data;
         currentHealth = enemyData.health;
         Debug.Log($"Initialized enemy: {enemyData.name} with Health: {currentHealth}");
-
 
         // find player object using its tag (make sure your player GameObject has the "Player" tag)
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -30,91 +43,40 @@ public class EnemyController : MonoBehaviour
             Debug.LogWarning("[EnemyController] Player object not found. Enemy might not be able to track.");
         }
 
-        // add SpriteRenderer and set sprite (simplified, you'd load from Resources/AssetBundles)
-        SpriteRenderer sr = gameObject.AddComponent<SpriteRenderer>();
-        // placeholder for loading sprite: assuming sprites are in resources/sprites/enemies
-        // sprite enemySprite = Resources.Load<Sprite>($"Sprites/Enemies/{enemyData.spritePath}");
-        /*
-        if (enemySprite != null)
+        // Load and assign the sprite from the loaded EnemyData
+        if (enemyData.loadedSprite != null) // Use the pre-loaded sprite from DataManager (preferred)
         {
-            sr.sprite = enemySprite;
+            sr.sprite = (Sprite)enemyData.loadedSprite;
+        }
+        else if (!string.IsNullOrEmpty(enemyData.spritePath)) // Fallback if not pre-loaded, or if you prefer to load here
+        {
+            Sprite enemySprite = Resources.Load<Sprite>(enemyData.spritePath);
+            if (enemySprite != null)
+            {
+                sr.sprite = enemySprite;
+            }
+            else
+            {
+                Debug.LogWarning($"[EnemyController] Sprite not found for path: Resources/{enemyData.spritePath} for enemy: {enemyData.name}.");
+            }
         }
         else
         {
-            Debug.LogWarning($"[EnemyController] Sprite not found for path: Sprites/Enemies/{enemyData.spritePath}");
-            // fallback to basic shape or default sprite
+            Debug.LogWarning($"[EnemyController] No spritePath defined or loaded sprite for enemy: {enemyData.name}.");
         }
-        */
-
-        // add Rigidbody2D and Collider2D for physics and collision detection
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0; // Top-down game, no gravity
-        rb.constraints = RigidbodyConstraints2FreezeRotation; // prevent rotation
-
-        // add collider, e.g., CircleCollider2D or BoxCollider2D
-        CircleCollider2D collider = gameObject.AddComponent<CircleCollider2D>();
-        collider.radius = 0.5f; // adjust size based on your sprite
-        collider.isTrigger = false; // actual collision or just trigger?
     }
 
+    // Placeholder for enemy behavior (e.g., movement towards player)
     void Update()
     {
-        if (enemyData == null) return; // ensure data is loaded
-
-        // handle movement based on the loaded data
-        HandleMovement();
-
-        // handle attack behavior (e.g., ranged attacks)
-        HandleAttack();
-    }
-
-    private void HandleMovement()
-    {
-        switch (enemyData.movementPattern)
+        if (playerTransform != null && enemyData != null)
         {
-            case "chasing_player":
-                if (playerTransform != null)
-                {
-                    Vector2 direction = (playerTransform.position - transform.position).normalized;
-                    transform.Translate(direction * enemyData.movementSpeed * Time.deltaTime);
-                }
-                break;
-            case "straight":
-                // eg: move downwards (adjust as per game's direction)
-                transform.Translate(Vector2.down * enemyData.movementSpeed * Time.deltaTime);
-                break;
-            case "random":
-                // basic random movement: continuously pick a random direction and move
-                // more sophisticated would involve pathfinding or finite state machines
-                // for now, make them wiggle
-                transform.Translate(new Vector2(Mathf.Sin(Time.time * 2f), Mathf.Cos(Time.time * 2f)) * enemyData.movementSpeed * 0.1f * Time.deltaTime);
-                break;
-            default:
-                // no specific movement pattern or unknown pattern
-                break;
+            // Example: Simple chasing behavior
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            transform.position += direction * enemyData.movementSpeed * Time.deltaTime;
         }
     }
 
-    private float _nextFireTime;
-
-    public RigidbodyConstraints2D RigidbodyConstraints2FreezeRotation { get; private set; }
-
-    private void HandleAttack()
-    {
-        if (enemyData.behaviour == "ranged" && enemyData.bulletFiringRate > 0)
-        {
-            if (Time.time >= _nextFireTime)
-            {
-                // implement bullet spawning/firing logic here
-                Debug.Log($"[EnemyController] {enemyData.name} fired a bullet!");
-                // eg instantiate a projectile prefab
-                // instantiate(enemyBulletPrefab, transform.position, Quaternion.identity);
-                _nextFireTime = Time.time + (1f / enemyData.bulletFiringRate);
-            }
-        }
-    }
-
-    // method to take damage (called by player projectiles, etc.)
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -130,8 +92,8 @@ public class EnemyController : MonoBehaviour
     private void Die()
     {
         Debug.Log($"[EnemyController] {enemyData.name} defeated!");
-        // notify the WaveManager that an enemy has been defeated
-        // WaveManager.Instance?.OnEnemyDefeated(); // using the singleton instance of WaveManager  -> error so commented
+        // If you had WaveManager.Instance.OnEnemyDefeated(); you would uncomment and implement it in WaveManager
+        // WaveManager.Instance?.OnEnemyDefeated();
         Destroy(gameObject); // remove the enemy from the scene
     }
 
@@ -143,14 +105,30 @@ public class EnemyController : MonoBehaviour
         {
             /*
             // assuming player has a component with a TakeDamage method (e.g., PlayerHealth)
-            // PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(_enemyData.contactDamage);
-                Debug.Log($"[EnemyController] {_enemyData.name} dealt {_enemyData.contactDamage} contact damage to Player.");
+                playerHealth.TakeDamage(enemyData.contactDamage); // Use enemyData.contactDamage
+                Debug.Log($"[EnemyController] {enemyData.name} dealt {enemyData.contactDamage} contact damage to Player.");
             }
             */
             Debug.Log($"[EnemyController] {enemyData.name} contacted Player.");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bullet")) // Assuming player bullets have "Bullet" tag
+        {
+            // Example: Get damage from bullet or define here
+            TakeDamage(10); // Replace with actual bullet damage if applicable
+            Destroy(other.gameObject); // Destroy the bullet
+        }
+        else if (other.CompareTag("Player")) // If you use trigger for player contact instead of collision
+        {
+            Debug.Log("Enemy touched the player (via trigger)!");
+            // Add damage logic here if player is a trigger or if enemy deals damage on trigger touch
+            // Example: other.GetComponent<PlayerHealth>()?.TakeDamage(enemyData.contactDamage);
         }
     }
 }
