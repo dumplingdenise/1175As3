@@ -299,15 +299,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allEnemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - id: 
+    name: 
+    health: 0
+    movementSpeed: 0
+    contactDamage: 0
+    bulletFiringRate: 0
+    movementPattern: 
+    behaviour: 
+    spritePath: 
+  - id: 
+    name: 
+    health: 0
+    movementSpeed: 0
+    contactDamage: 0
+    bulletFiringRate: 0
+    movementPattern: 
+    behaviour: 
+    spritePath: 
+  - id: 
+    name: 
+    health: 0
+    movementSpeed: 0
+    contactDamage: 0
+    bulletFiringRate: 0
+    movementPattern: 
+    behaviour: 
+    spritePath: 
+  - id: 
+    name: 
+    health: 0
+    movementSpeed: 0
+    contactDamage: 0
+    bulletFiringRate: 0
+    movementPattern: 
+    behaviour: 
+    spritePath: 
+  - id: 
+    name: 
+    health: 0
+    movementSpeed: 0
+    contactDamage: 0
+    bulletFiringRate: 0
+    movementPattern: 
+    behaviour: 
+    spritePath: 
   allEnemyWaves:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - waveId: 
+    waveName: 
+    spawnCondition: 
+    conditionValue: 
+    enemiesToSpawn: []
+  - waveId: 
+    waveName: 
+    spawnCondition: 
+    conditionValue: 
+    enemiesToSpawn: []
+  - waveId: 
+    waveName: 
+    spawnCondition: 
+    conditionValue: 
+    enemiesToSpawn: []
 --- !u!4 &116078930
 Transform:
   m_ObjectHideFlags: 0
