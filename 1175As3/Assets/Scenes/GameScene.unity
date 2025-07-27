@@ -356,11 +356,6 @@ MonoBehaviour:
     spawnCondition: 
     conditionValue: 
     enemiesToSpawn: []
-  - waveId: 
-    waveName: 
-    spawnCondition: 
-    conditionValue: 
-    enemiesToSpawn: []
 --- !u!4 &116078930
 Transform:
   m_ObjectHideFlags: 0
