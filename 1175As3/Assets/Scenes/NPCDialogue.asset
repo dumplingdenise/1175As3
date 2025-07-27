@@ -33,6 +33,10 @@ MonoBehaviour:
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
     line: Use WASD or arrow key to move around!
     autoProgress: 0
+  - speakerName: Boo
+    speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
+    line: Lets try moving to Slimey over there.
+    autoProgress: 0
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
   voicePitch: 1

@@ -20,6 +20,8 @@ public class NPC : MonoBehaviour, IInteractable
 
     public tutorialCharMovement playerScript;
 
+    public bool shouldFadeAndDisappear = false; 
+
     public bool CanInteract()
     {
         return !isDialogueActive;
@@ -27,7 +29,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (dialogueData == null /*|| !isDialogueActive*/)
+        if (dialogueData == null)
         {
             return;
         }
@@ -39,6 +41,7 @@ public class NPC : MonoBehaviour, IInteractable
 
         else
         {
+            DialogueManager.instance.RegisterNPC(this);
             StartDialogue();
         }
 
@@ -48,9 +51,6 @@ public class NPC : MonoBehaviour, IInteractable
     {
         isDialogueActive = true;
         dialogueIndex = 0;
-
-        /*nameText.SetText(dialogueData.speakerName);
-        portraitImage.sprite = dialogueData.speakerPortrait;*/
 
         UpdateSpeakerUI();
 
@@ -96,12 +96,6 @@ public class NPC : MonoBehaviour, IInteractable
         }
 
         isTyping = false;
-
-        /*if (*//*dialogueData.autoProgressLines.Length > dialogueIndex && dialogueData.autoProgressLines[dialogueIndex]*//* dialogueData.lines[dialogueIndex].autoProgress)
-        {
-            yield return new WaitForSeconds(dialogueData.autoProgressDelay);
-            NextLine();
-        }*/
     }
 
     public void EndDialogue()
@@ -116,9 +110,12 @@ public class NPC : MonoBehaviour, IInteractable
             playerScript.canMove = true; // set to enable movement after dialogue
         }
 
-        /*gameObject.SetActive(false);*/
+        if (shouldFadeAndDisappear == true)
+        {
+            StartCoroutine(FadeOutAndDisappear(0.5f));
+        }
 
-        StartCoroutine(FadeOutAndDisappear(0.5f));
+        DialogueManager.instance.ClearNPC(); 
     }
 
     void UpdateSpeakerUI()
@@ -144,7 +141,7 @@ public class NPC : MonoBehaviour, IInteractable
 
         sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
 
-        gameObject.SetActive(false); // finally hide NPC
+        gameObject.SetActive(false); // hide npc
     }
 
     void UpdateButtonVisibility()
@@ -160,6 +157,7 @@ public class NPC : MonoBehaviour, IInteractable
             nextBtn.SetActive(!isLastLine);
         }
     }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
