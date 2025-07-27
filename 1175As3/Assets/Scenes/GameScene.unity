@@ -284,8 +284,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints:
   - {fileID: 1200818808}
-  - {fileID: 1557465906}
   - {fileID: 1414917647}
+  - {fileID: 1557465906}
 --- !u!114 &116078929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,8 +298,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407d5d443cb71454798275f8a2beb096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allEnemies: []
-  allEnemyWaves: []
+  allEnemies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  allEnemyWaves:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &116078930
 Transform:
   m_ObjectHideFlags: 0
@@ -1738,7 +1746,7 @@ GameObject:
   - component: {fileID: 1200818808}
   m_Layer: 0
   m_Name: SpawnPoint_Top
-  m_TagString: spawnPoint
+  m_TagString: top
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2041,7 +2049,7 @@ GameObject:
   - component: {fileID: 1414917647}
   m_Layer: 0
   m_Name: SpawnPoint_Left
-  m_TagString: spawnPoint
+  m_TagString: left
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2342,7 +2350,7 @@ GameObject:
   - component: {fileID: 1557465906}
   m_Layer: 0
   m_Name: SpawnPoint_Random
-  m_TagString: spawnPoint
+  m_TagString: random
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviour
     // Singleton pattern for easy access from other scripts
     public static DataManager Instance { get; private set; }
 
-    public List<Enemy> allEnemies = new List<Enemy>();
+    public List<EnemyData> allEnemies = new List<EnemyData>();
     public List<EnemyWave> allEnemyWaves = new List<EnemyWave>();
     // Add other data lists here (e.g., allCharacters, allWeapons)
 
@@ -47,7 +47,7 @@ public class DataManager : MonoBehaviour
         {
             string jsonContent = File.ReadAllText(fullPath);
             // Deserialize directly into a List<EnemyData> using Newtonsoft.Json
-            allEnemies = JsonConvert.DeserializeObject<List<Enemy>>(jsonContent);
+            allEnemies = JsonConvert.DeserializeObject<List<EnemyData>>(jsonContent);
             Debug.Log($"[DataManager] Loaded {allEnemies.Count} enemies from {fileName}.");
 
             if (allEnemies != null && allEnemies.Count > 0)
@@ -66,7 +66,7 @@ public class DataManager : MonoBehaviour
         else
         {
             Debug.LogError($"[DataManager] Enemy data file not found at: {fullPath}");
-            allEnemies = new List<Enemy>(); // initialize empty list to prevent further NREs
+            allEnemies = new List<EnemyData>(); // initialize empty list to prevent further NREs
         }
     }
 
@@ -87,7 +87,7 @@ public class DataManager : MonoBehaviour
     }
 
     // Public helper method to retrieve EnemyData by ID
-    public Enemy GetEnemyData(string enemyId)
+    public EnemyData GetEnemyData(string enemyId)
     {
         return allEnemies.Find(enemy => enemy.id == enemyId);
     }
