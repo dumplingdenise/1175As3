@@ -1737,7 +1737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1200818808}
   m_Layer: 0
-  m_Name: SpawnPoint_1
+  m_Name: SpawnPoint_Top
   m_TagString: spawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1752,7 +1752,7 @@ Transform:
   m_GameObject: {fileID: 1200818807}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.97, y: 1.78, z: -0.043267306}
+  m_LocalPosition: {x: 2.82, y: 3.27, z: -0.043267306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2040,7 +2040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1414917647}
   m_Layer: 0
-  m_Name: SpawnPoint_3
+  m_Name: SpawnPoint_Left
   m_TagString: spawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2341,7 +2341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1557465906}
   m_Layer: 0
-  m_Name: SpawnPoint_2
+  m_Name: SpawnPoint_Random
   m_TagString: spawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2356,7 +2356,7 @@ Transform:
   m_GameObject: {fileID: 1557465905}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.28, y: -4.03, z: -0.043267306}
+  m_LocalPosition: {x: 4.61, y: -3.97, z: -0.043267306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3267,5 +3267,5 @@ SceneRoots:
   - {fileID: 1806365353}
   - {fileID: 116078930}
   - {fileID: 1200818808}
-  - {fileID: 1557465906}
   - {fileID: 1414917647}
+  - {fileID: 1557465906}

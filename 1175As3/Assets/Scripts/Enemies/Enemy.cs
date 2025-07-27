@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
-[Serializable]
+[System.Serializable]
 
 public class Enemy : MonoBehaviour
 {
     public string id;
     public string name;
-    public float health;
+    public int health;
     public float movementSpeed;
-    public float contactDamage;
+    public int contactDamage;
     public float bulletFiringRate;
     public string movementPattern;
     public string behaviour;
