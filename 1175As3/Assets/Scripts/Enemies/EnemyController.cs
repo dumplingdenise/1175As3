@@ -14,6 +14,12 @@ public class EnemyController : MonoBehaviour
     // reference to the sprite renderer
     private SpriteRenderer sr; // Declare it here
 
+    void Start()
+    {
+        Debug.Log($"My tag is: {this.gameObject.tag}"); // accesses the tag of the GameObject this script is on
+    }
+
+
     void Awake()
     {
         // Get existing SpriteRenderer or add one if not present
