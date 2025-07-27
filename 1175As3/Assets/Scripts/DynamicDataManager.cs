@@ -28,7 +28,7 @@ public class DynamicDataManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Load stats when the game start
+        // dynamic data are loaded automatically when the game starts
         LoadGameStats();
        
     }
@@ -42,7 +42,7 @@ public class DynamicDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // FOR TESTING ONLY: Press 'S' to save game stats and see the debug log
+        // FOR TESTING ONLY:
         if (Input.GetKeyDown(KeyCode.P))
         {
             SaveGameStats();

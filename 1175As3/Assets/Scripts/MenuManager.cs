@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject loadGameBtn;
 
+    //Bonus
      void Start()
     {
         if (loadGameBtn != null)
@@ -27,9 +28,10 @@ public class MenuManager : MonoBehaviour
     {
        
         // Load to a new scene by the name
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("CharacterSelection");
     }
 
+    //Bonus 
     public void StartNewGame()
     {
         //call the method in dynamicdatamanager to reset all stats
