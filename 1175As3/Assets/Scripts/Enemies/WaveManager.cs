@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    
+
     // singleton pattern
     public static WaveManager Instance { get; private set; }
+
+    [Tooltip("Assign your generic enemy prefab here.")]
+    public GameObject enemyPrefab; // Assign your generic enemy prefab here in the Inspector
 
     [Tooltip("Assign GameObjects here that will serve as spawn points for enemies.")]
     public Transform[] spawnPoints; // assign in the Inspector
@@ -21,8 +25,8 @@ public class WaveManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            // no DontDestroyOnLoad here if you want it to reset per scene.
-            // if want it to persist, add DontDestroyOnLoad(gameObject);
+            // If you want WaveManager to persist across scenes, uncomment the line below.
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -33,17 +37,18 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         // ensure DataManager has loaded data before trying to access it
-        if (DataManager.Instance != null && DataManager.Instance.allEnemyWaves.Count > 0)
+        // This check is important due to script execution order
+        if (DataManager.Instance != null && DataManager.Instance.allEnemyWaves != null && DataManager.Instance.allEnemyWaves.Count > 0)
         {
             StartNextWave(); // start the first wave
         }
         else
         {
-            Debug.LogError("[WaveManager] No enemy wave data loaded or DataManager not found. Check DataManager setup.");
+            Debug.LogError("[WaveManager] No enemy wave data loaded or DataManager not found. Check DataManager setup and Script Execution Order.");
         }
     }
 
-    // call this method to advance to the next wave
+    // Call this method to advance to the next wave
     public void StartNextWave()
     {
         currentWaveIndex++; // move to the next wave
@@ -53,165 +58,180 @@ public class WaveManager : MonoBehaviour
             EnemyWave currentWave = DataManager.Instance.allEnemyWaves[currentWaveIndex];
             Debug.Log($"[WaveManager] Starting Wave: {currentWave.waveName} (ID: {currentWave.waveId})");
 
-            // stop any existing wave coroutine to prevent overlap
+            // Stop any existing wave coroutine to prevent overlap, e.g., if a new wave starts early
             if (currentWaveCoroutine != null)
             {
                 StopCoroutine(currentWaveCoroutine);
             }
 
-            // determine how the wave should be spawned based on its condition
+            // Determine how the wave should be spawned based on its condition
             switch (currentWave.spawnCondition)
             {
                 case "time_based":
                     if (float.TryParse(currentWave.conditionValue, out float delay))
                     {
-
                         currentWaveCoroutine = StartCoroutine(SpawnWaveAfterDelay(currentWave, delay));
                     }
                     else
                     {
-                        Debug.LogError($"[WaveManager] Invalid time_based condition value for wave {currentWave.waveId}: {currentWave.conditionValue}");
-                        currentWaveCoroutine = StartCoroutine(SpawnEnemiesInWave(currentWave)); // spawn immediately if value invalid
+                        Debug.LogError($"[WaveManager] Invalid conditionValue for time_based wave: {currentWave.conditionValue} in wave {currentWave.waveId}. Expected a float value.");
                     }
                     break;
-                case "trigger_area":
-                    // this wave requires an external trigger to activate (e.g., player enters a zone)
-                    // need a separate Trigger script that calls WaveManager.Instance.ActivateTriggeredWave(currentWave.waveId);
-                    Debug.Log($"[WaveManager] Wave {currentWave.waveName} awaiting trigger: {currentWave.conditionValue}");
-                    break;
-                case "all_enemies_defeated":
-                    // this implies the previous wave must be fully cleared.
-                    // if this is the *first* wave, it will just start.
-                    // if it's a subsequent wave, it needs to be triggered after the previous wave's enemies are all gone.
-                    currentWaveCoroutine = StartCoroutine(SpawnEnemiesInWave(currentWave));
+                case "initial_spawn": // For waves that spawn all at once at the start
+                    SpawnEnemiesInWave(currentWave);
                     break;
                 default:
-                    Debug.LogWarning($"[WaveManager] Unknown spawn condition for wave {currentWave.waveId}: {currentWave.spawnCondition}. Spawning immediately.");
-                    currentWaveCoroutine = StartCoroutine(SpawnEnemiesInWave(currentWave));
+                    Debug.LogWarning($"[WaveManager] Unknown spawnCondition: {currentWave.spawnCondition} for wave {currentWave.waveId}. Defaulting to initial_spawn.");
+                    SpawnEnemiesInWave(currentWave); // Fallback to immediate spawn
                     break;
             }
         }
         else
         {
-            Debug.Log("[WaveManager] All waves completed! No more waves to start.");
-            // game end or level completion logic here
+            Debug.Log("[WaveManager] All waves completed! No more waves to spawn.");
+            // Implement game over or victory condition here, e.g.:
+            // GameUIManager.Instance.ShowVictoryScreen();
         }
     }
 
-    // coroutine to handle time-based wave spawning
     private IEnumerator SpawnWaveAfterDelay(EnemyWave wave, float delay)
     {
-        yield return new WaitForSeconds(delay); // wait for the specified delay
-        currentWaveCoroutine = StartCoroutine(SpawnEnemiesInWave(wave)); // then start spawning enemies
+        yield return new WaitForSeconds(delay);
+        SpawnEnemiesInWave(wave);
     }
 
-    // coroutine to spawn enemies for the current wave
-    private IEnumerator SpawnEnemiesInWave(EnemyWave wave)
+    private void SpawnEnemiesInWave(EnemyWave wave)
     {
-        enemiesRemainingInWave = 0; // reset counter for the new wave
+        int totalEnemiesExpected = 0;
+        if (enemyPrefab == null)
+        {
+            Debug.LogError("[WaveManager] Enemy Prefab is not assigned in the Inspector! Cannot spawn enemies.");
+            return;
+        }
 
         foreach (EnemyToSpawn entry in wave.enemiesToSpawn)
         {
+            // Request EnemyData from DataManager
+            // This assumes EnemyData is the plain C# class without MonoBehaviour
             EnemyData enemyData = DataManager.Instance.GetEnemyData(entry.enemyId);
-            if (enemyData == null)
-            {
-                Debug.LogError($"[WaveManager] Enemy data for ID '{entry.enemyId}' not found! Skipping.");
-                continue;
-            }
 
-            for (int i = 0; i < entry.count; i++)
+            if (enemyData != null)
             {
                 Transform spawnPoint = GetSpawnPoint(entry.spawnPointTag);
+
                 if (spawnPoint != null)
                 {
-                    // create a new GameObject for the enemy
-                    GameObject enemyGO = new GameObject($"Enemy_{enemyData.name}_{i}");
-                    enemyGO.transform.position = spawnPoint.position;
-                    enemyGO.transform.SetParent(this.transform); // parent to WaveManager for organization
+                    for (int i = 0; i < entry.count; i++)
+                    {
+                        // Instantiate the generic enemy prefab at the spawn point's position
+                        GameObject newEnemyGO = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
 
-                    // add the EnemyController script and initialize it with data
-                    EnemyController enemyController = enemyGO.AddComponent<EnemyController>();
-                    enemyController.Initialize(enemyData);
-
-                    enemiesRemainingInWave++; // increment count of enemies for this wave
+                        // Get the EnemyController component from the instantiated enemy.
+                        // Ensure EnemyController.cs is attached to your enemyPrefab.
+                        EnemyController enemyController = newEnemyGO.GetComponent<EnemyController>();
+                        if (enemyController != null)
+                        {
+                            // Initialize the enemy with its specific loaded data
+                            enemyController.Initialize(enemyData);
+                            totalEnemiesExpected++;
+                            // You might want to increment enemiesRemainingInWave here if you track it
+                            // enemiesRemainingInWave++;
+                        }
+                        else
+                        {
+                            Debug.LogError($"[WaveManager] EnemyPrefab '{enemyPrefab.name}' is missing an EnemyController component! Cannot initialize enemy.", enemyPrefab);
+                            Destroy(newEnemyGO); // Clean up the uninitialized enemy
+                        }
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning($"[WaveManager] No suitable spawn point found for tag '{entry.spawnPointTag}' for enemy {enemyData.name}.");
+                    Debug.LogWarning($"[WaveManager] No suitable spawn point found for tag '{entry.spawnPointTag}' for enemy {enemyData.name}. Skipping this spawn entry.", this);
                 }
-                yield return new WaitForSeconds(0.2f); // small delay between individual enemy spawns
-            }
-        }
-        Debug.Log($"[WaveManager] All enemies for Wave {wave.waveName} initiated spawning. Total expected enemies: {enemiesRemainingInWave}");
-    }
-
-    // helper to get a spawn point by tag or randomly
-    private Transform GetSpawnPoint(string tag = "")
-    {
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogError("[WaveManager] No spawn points assigned!");
-            return null;
-        }
-
-        if (!string.IsNullOrEmpty(tag) && tag.ToLower() != "random")
-        {
-            // try to find a specific spawn point by name/tag (you'd need to set names in Inspector)
-            foreach (Transform sp in spawnPoints)
-            {
-                if (sp.name.Equals(tag, System.StringComparison.OrdinalIgnoreCase))
-                {
-                    return sp;
-                }
-            }
-            Debug.LogWarning($"[WaveManager] Spawn point with tag '{tag}' not found. Using random spawn point instead.");
-        }
-
-        // Default to random if tag is empty, "random", or not found
-        return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-    }
-
-    // this method is called by EnemyController when an enemy is defeated
-    public void OnEnemyDefeated()
-    {
-        enemiesRemainingInWave--;
-        Debug.Log($"[WaveManager] Enemy defeated. Enemies remaining in wave: {enemiesRemainingInWave}");
-
-        if (enemiesRemainingInWave <= 0)
-        {
-            Debug.Log("[WaveManager] All enemies in current wave defeated!");
-            // after short delay, start the next wave (gives player a breather)
-            StartCoroutine(DelayBeforeNextWave(3f)); // 3-second delay
-        }
-    }
-
-    private IEnumerator DelayBeforeNextWave(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        StartNextWave();
-    }
-
-    // if implement "trigger_area" waves, you'd call this from a Trigger component
-    public void ActivateTriggeredWave(string waveIdToActivate)
-    {
-        // Find the wave by its ID
-        EnemyWave waveToActivate = DataManager.Instance.allEnemyWaves.Find(wave => wave.waveId == waveIdToActivate);
-        if (waveToActivate != null)
-        {
-            // Ensure this is the *current* expected wave to avoid skipping
-            if (DataManager.Instance.allEnemyWaves[currentWaveIndex]?.waveId == waveIdToActivate)
-            {
-                Debug.Log($"[WaveManager] Triggered wave '{waveIdToActivate}' activated.");
-                currentWaveCoroutine = StartCoroutine(SpawnEnemiesInWave(waveToActivate));
             }
             else
             {
-                Debug.LogWarning($"[WaveManager] Triggered wave '{waveIdToActivate}' activated, but it's not the current expected wave. Skipping.");
+                Debug.LogWarning($"[WaveManager] Enemy data for ID '{entry.enemyId}' not found in DataManager. Skipping this spawn entry.", this);
             }
         }
-        else
+        Debug.Log($"[WaveManager] All enemies for Wave {wave.waveName} initiated spawning. Total expected enemies: {totalEnemiesExpected}");
+    }
+
+    // This method finds a suitable spawn point based on the provided tag.
+    private Transform GetSpawnPoint(string tag)
+    {
+        // Debug.Log is often useful, but can be verbose. Keep it during debugging, remove for final build.
+        // Debug.Log($"[WaveManager Debug] Attempting to find spawn point with tag: '{tag}'");
+
+        if (spawnPoints == null || spawnPoints.Length == 0)
         {
-            Debug.LogError($"[WaveManager] Attempted to activate non-existent wave ID: {waveIdToActivate}");
+            Debug.LogError("[WaveManager Debug] 'spawnPoints' array is null or empty in the Inspector! Please assign spawn point GameObjects.", this);
+            return null;
+        }
+
+        // Collect all valid points that match the tag
+        List<Transform> taggedPoints = new List<Transform>();
+        foreach (Transform point in spawnPoints)
+        {
+            if (point != null && point.CompareTag(tag))
+            {
+                taggedPoints.Add(point);
+            }
+        }
+
+        if (taggedPoints.Count > 0)
+        {
+            // If the tag is "random", pick one randomly from the matching tagged points
+            if (tag.Equals("random", StringComparison.OrdinalIgnoreCase)) // Use case-insensitive comparison for "random"
+            {
+                Transform randomPoint = taggedPoints[Random.Range(0, taggedPoints.Count)];
+                Debug.Log($"[WaveManager Debug] Found random spawn point for tag '{tag}': {randomPoint.name}");
+                return randomPoint;
+            }
+            else
+            {
+                // For specific tags, return the first one found (or extend logic if multiple points can share a specific tag)
+                Debug.Log($"[WaveManager Debug] Found specific spawn point for tag '{tag}': {taggedPoints[0].name}");
+                return taggedPoints[0];
+            }
+        }
+        // Fallback for "random" tag: if no specific "random" tagged points were found, check ALL points
+        // This provides a safety net, but it's better to ensure your random spawn points are tagged correctly.
+        else if (tag.Equals("random", StringComparison.OrdinalIgnoreCase))
+        {
+            List<Transform> allValidPoints = new List<Transform>();
+            foreach (Transform point in spawnPoints)
+            {
+                if (point != null)
+                {
+                    allValidPoints.Add(point);
+                }
+            }
+
+            if (allValidPoints.Count > 0)
+            {
+                Transform randomPoint = allValidPoints[Random.Range(0, allValidPoints.Count)];
+                Debug.LogWarning($"[WaveManager Debug] No specific 'random' tagged points found. Using a random available spawn point: {randomPoint.name}");
+                return randomPoint;
+            }
+        }
+
+        // If no spawn point was found after all checks
+        Debug.LogWarning($"[WaveManager Debug] No spawn point found for tag: '{tag}'. Please ensure GameObjects are assigned to 'Spawn Points' array and have the correct tag in the Inspector.", this);
+        return null;
+    }
+
+    // can add a method like this if enemies report back when defeated
+    /*
+    public void OnEnemyDefeated()
+    {
+        enemiesRemainingInWave--;
+        if (enemiesRemainingInWave <= 0)
+        {
+            Debug.Log("[WaveManager] Wave cleared! Starting next wave soon...");
+            // can add a delay here before starting the next wave
+            // StartNextWave();
         }
     }
+    */
 }
