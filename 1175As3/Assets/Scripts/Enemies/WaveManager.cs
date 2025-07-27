@@ -64,6 +64,9 @@ public class WaveManager : MonoBehaviour
                 StopCoroutine(currentWaveCoroutine);
             }
 
+            // Reset enemiesRemainingInWave for the new wave
+            enemiesRemainingInWave = 0;
+
             // Determine how the wave should be spawned based on its condition
             switch (currentWave.spawnCondition)
             {
@@ -133,9 +136,7 @@ public class WaveManager : MonoBehaviour
                         {
                             // Initialize the enemy with its specific loaded data
                             enemyController.Initialize(enemyData);
-                            totalEnemiesExpected++;
-                            // You might want to increment enemiesRemainingInWave here if you track it
-                            // enemiesRemainingInWave++;
+                            enemiesRemainingInWave++; // Increment here for each spawned enemy
                         }
                         else
                         {
@@ -154,7 +155,13 @@ public class WaveManager : MonoBehaviour
                 Debug.LogWarning($"[WaveManager] Enemy data for ID '{entry.enemyId}' not found in DataManager. Skipping this spawn entry.", this);
             }
         }
-        Debug.Log($"[WaveManager] All enemies for Wave {wave.waveName} initiated spawning. Total expected enemies: {totalEnemiesExpected}");
+        Debug.Log($"[WaveManager] All enemies for Wave {wave.waveName} initiated spawning. Total expected enemies for this wave: {enemiesRemainingInWave}");
+        // If no enemies were spawned for some reason, immediately check for wave completion
+        if (enemiesRemainingInWave == 0)
+        {
+            Debug.Log("[WaveManager] No enemies were spawned for this wave. Checking for next wave.");
+            StartNextWave();
+        }
     }
 
     // This method finds a suitable spawn point based on the provided tag.
@@ -221,17 +228,26 @@ public class WaveManager : MonoBehaviour
         return null;
     }
 
-    // can add a method like this if enemies report back when defeated
-    /*
+    // Call this method from EnemyController when an enemy is defeated
     public void OnEnemyDefeated()
     {
         enemiesRemainingInWave--;
+        Debug.Log($"[WaveManager] Enemy defeated. Enemies remaining in wave: {enemiesRemainingInWave}");
         if (enemiesRemainingInWave <= 0)
         {
             Debug.Log("[WaveManager] Wave cleared! Starting next wave soon...");
-            // can add a delay here before starting the next wave
-            // StartNextWave();
+            // You can add a delay here before starting the next wave, e.g., using a coroutine:
+            // StartCoroutine(StartNextWaveAfterDelay(3f)); // 3-second delay
+            StartNextWave();
         }
+    }
+
+    /*
+    // Example of adding a delay before starting the next wave
+    private IEnumerator StartNextWaveAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartNextWave();
     }
     */
 }

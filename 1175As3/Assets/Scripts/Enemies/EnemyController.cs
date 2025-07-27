@@ -98,8 +98,8 @@ public class EnemyController : MonoBehaviour
     private void Die()
     {
         Debug.Log($"[EnemyController] {enemyData.name} defeated!");
-        // If you had WaveManager.Instance.OnEnemyDefeated(); you would uncomment and implement it in WaveManager
-        // WaveManager.Instance?.OnEnemyDefeated();
+        // Notify the WaveManager that an enemy has been defeated
+        WaveManager.Instance?.OnEnemyDefeated(); // Calls the OnEnemyDefeated method in WaveManager
         Destroy(gameObject); // remove the enemy from the scene
     }
 
