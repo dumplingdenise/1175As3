@@ -45,10 +45,10 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Collision
+  - name: 
     uniqueID: 2522062991
     locked: 0
-  - name: Player
+  - name: 
     uniqueID: 39610265
     locked: 0
   m_RenderingLayers:
