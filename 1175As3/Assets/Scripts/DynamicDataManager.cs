@@ -3,9 +3,30 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 
+// this class will hold the statistics that will be save to a file
+[System.Serializable]
+public class GameStats
+{
+    public int enemiesDefeated;
+    public int wavescompleted;
+    public float totaldistancetraveled;
+
+    // Timestamp for when this specific game session's data was recorded.
+    public string timestamp;
+
+}
+
+//holds all saved gamestats data
+[System.Serializable]
+public class AllGameStats
+{
+    public List<GameStats> statsEntries; // list of past game sessions saved
+
+}
+
 public class DynamicDataManager : MonoBehaviour
 {
-    public static DynamicDataManager Instance;
+    public static DynamicDataManager Instance; // singleton reference
 
     private int enemiesdefeated;
     private int wavescompleted;
@@ -46,18 +67,19 @@ public class DynamicDataManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             SaveGameStats();
-            Debug.Log("Attempting to save game stats via 'p' key press."); // Add this for more clarity
+            Debug.Log("Attempting to save game stats via 'p' key press."); 
         }
     }
 
     public void IncrementEnemiesDefeated()
     {
-        enemiesdefeated++;
+        enemiesdefeated++; // increase the count
 
-        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
-        if (displayManager != null) // Explicit null check
+        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>();
+
+        if (displayManager != null) 
         {
-            displayManager.UpdateDisplay();
+            displayManager.UpdateDisplay(); // refresh stats Ui
         }
     }
 
@@ -65,8 +87,9 @@ public class DynamicDataManager : MonoBehaviour
     {
         wavescompleted++;
 
-        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
-        if (displayManager != null) // Explicit null check
+        StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); 
+
+        if (displayManager != null) 
         {
             displayManager.UpdateDisplay();
         }
@@ -75,7 +98,7 @@ public class DynamicDataManager : MonoBehaviour
     //add the distance to the total distance traveled
     public void AddDistanceTraveled(float distance)
     {
-        totaldistancetraveled += distance;
+        totaldistancetraveled += distance; // add total distance
 
         StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
         if (displayManager != null) // Explicit null check
@@ -128,14 +151,14 @@ public class DynamicDataManager : MonoBehaviour
     //save game stats to an external file
     public void SaveGameStats()
     {
-        Debug.Log("SaveGameStats method entered."); // Add this line
+        Debug.Log("SaveGameStats method entered."); 
 
-        AllGameStats allStats = ReadGameHistoryFromFile();
+        AllGameStats allStats = ReadGameHistoryFromFile(); // Load old data
 
         //create instance of GameStats to hold the data
         GameStats saveStats = new GameStats();
 
-        saveStats.timestamp = System.DateTime.Now.ToString();
+        saveStats.timestamp = System.DateTime.Now.ToString(); // add timestamp
 
         //Populate the GameStats object with current manager's data
         saveStats.enemiesDefeated = enemiesdefeated;
@@ -213,7 +236,7 @@ public class DynamicDataManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        SaveGameStats();
+        SaveGameStats(); // auto-save when game quits
         Debug.Log("Game stats automatically saved on application quit.");
     }
 
@@ -227,10 +250,11 @@ public class DynamicDataManager : MonoBehaviour
         // Define the file path for the save file
         string filePath = Application.persistentDataPath + "/game_stats.json";
 
-        // Delete the existing save file to ensure a truly fresh start
+       
         if (File.Exists(filePath))
         {
-            File.Delete(filePath);
+            File.Delete(filePath); // delete saved file
+
             Debug.Log("Olf file deleted: " + filePath);
         }
         else
@@ -239,7 +263,7 @@ public class DynamicDataManager : MonoBehaviour
         }
 
         StatisticsDisplayManager displayManager = FindAnyObjectByType<StatisticsDisplayManager>(); // Use FindAnyObjectByType
-        if (displayManager != null) // Explicit null check
+        if (displayManager != null) 
         {
             displayManager.UpdateDisplay();
         }
@@ -255,22 +279,3 @@ public class DynamicDataManager : MonoBehaviour
     }
 }
 
-// this class will hold the statistics that will be save to a file
-[System.Serializable]
-public class GameStats
-{
-    public int enemiesDefeated;
-    public int wavescompleted;
-    public float totaldistancetraveled;
-
-    // Timestamp for when this specific game session's data was recorded.
-    public string timestamp;
-
-}
-
-[System.Serializable]
-public class AllGameStats
-{
-    public List<GameStats> statsEntries;
-
-}
