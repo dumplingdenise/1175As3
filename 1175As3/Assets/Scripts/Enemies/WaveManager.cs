@@ -112,7 +112,7 @@ public class WaveManager : MonoBehaviour
 
         foreach (EnemyToSpawn entry in wave.enemiesToSpawn)
         {
-            Enemy enemyData = DataManager.Instance.GetEnemyData(entry.enemyId);
+            EnemyData enemyData = DataManager.Instance.GetEnemyData(entry.enemyId);
             if (enemyData == null)
             {
                 Debug.LogError($"[WaveManager] Enemy data for ID '{entry.enemyId}' not found! Skipping.");

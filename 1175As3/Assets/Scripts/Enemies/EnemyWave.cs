@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 
-public class EnemyWave : MonoBehaviour
+public class EnemyWave
 {
     public string waveId;
     public string waveName;

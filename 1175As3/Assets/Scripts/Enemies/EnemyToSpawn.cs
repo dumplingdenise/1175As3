@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 [System.Serializable]
 
-public class EnemyToSpawn : MonoBehaviour
+public class EnemyToSpawn
 {
     public string enemyId;
     public int count;

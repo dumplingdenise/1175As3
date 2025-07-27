@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 [System.Serializable]
 
-public class Enemy : MonoBehaviour
+public class EnemyData
 {
     public string id;
     public string name;
@@ -13,4 +13,5 @@ public class Enemy : MonoBehaviour
     public string movementPattern;
     public string behaviour;
     public string spritePath; //to load the sprite dynamically
+    internal object loadedSprite;
 }
