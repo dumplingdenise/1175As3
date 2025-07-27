@@ -23,7 +23,6 @@ public class Characters : MonoBehaviour
         public int armorRating;
         public string characterSpriteName;
         public Sprite defaultCharacterSprite; // for the normal sprite
-        /*public Dictionary<string, List<Sprite>> movementSprite = new();*/ // for sprites like walking, jumping, etc
 
         public AnimationClip idleAnimation;
         public AnimationClip runAnimation;
