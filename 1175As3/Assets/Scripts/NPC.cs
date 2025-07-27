@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NPC : MonoBehaviour, IInteractable
@@ -12,6 +13,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     public GameObject closeBtn;
     public GameObject nextBtn;
+    public GameObject startBtn;
 
     public GameObject promptPanel;
 
@@ -24,6 +26,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     public TutorialShoot shootScript; // ref to shooting script
     public bool canShoot = false;
+
 
     public bool CanInteract()
     {
@@ -72,8 +75,10 @@ public class NPC : MonoBehaviour, IInteractable
             StopAllCoroutines();
             dialogueText.SetText(dialogueData.lines[dialogueIndex].line);
             isTyping = false;
+            return;
         }
         ++dialogueIndex;
+
         if (dialogueIndex < dialogueData.lines.Length)
         {
             // if another line, type next line
@@ -81,6 +86,7 @@ public class NPC : MonoBehaviour, IInteractable
             StartCoroutine(TypeLine());
             UpdateButtonVisibility();
         }
+
         else
         {
             EndDialogue();
@@ -95,6 +101,7 @@ public class NPC : MonoBehaviour, IInteractable
         foreach (char letter in dialogueData.lines[dialogueIndex].line)
         {
             dialogueText.text += letter;
+
             yield return new WaitForSeconds(dialogueData.typingSpeed);
         }
 
@@ -150,6 +157,11 @@ public class NPC : MonoBehaviour, IInteractable
         sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
 
         gameObject.SetActive(false); // hide npc
+
+        if (startBtn != null) // only for the npc with the startBtn
+        {
+            startBtn.SetActive(true); 
+        }
     }
 
     void UpdateButtonVisibility()
@@ -175,12 +187,17 @@ public class NPC : MonoBehaviour, IInteractable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene("StartGameMenu");
     }
 }

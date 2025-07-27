@@ -2,22 +2,28 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    // this dialogueManager is for keeping track of who is the current
+    // npc dialogue set being runned since the npcs are using the same dialogue script
+  
+    
     public static DialogueManager instance;
 
-    private NPC currentNPC;
-
+    private NPC currentNPC; // for setting the current speaker
 
     void Awake()
     {
+        // ensure only 1 dialogMnanager exists
         if (instance == null) instance = this;
         else Destroy(gameObject);
     }
 
+    // for setting the current NPC
     public void RegisterNPC(NPC npc)
     {
         currentNPC = npc;
     }
 
+    // for managing moving to next line of the active dialogue
     public void NextLine()
     {
         if (currentNPC != null)
@@ -25,6 +31,8 @@ public class DialogueManager : MonoBehaviour
             currentNPC.NextLine();
         }
     }
+
+    // for ending the npc's set of dialogues
 
     public void EndDialogue()
     {
@@ -34,6 +42,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // clear the reference to the current npc
     public void ClearNPC()
     {
         currentNPC = null;
