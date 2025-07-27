@@ -1,3 +1,3 @@
 id,characterName,description,movementSpeed,maxHealth,armorRating,characterSpriteName
-1,Sprout,Hiya! I am Sprout a giggly green alien from planet Fernora,5,20,10,alienGreen
-2,Sunny,Harloo ~ I am Sunny a smug yellow alien from planet Raydia!,7,10,5,alienYellow
+1,Sprout,Hiya! I am Sprout a giggly green alien from planet Fernora,5,70,20,alienGreen
+2,Sunny,Harloo ~ I am Sunny a smug yellow alien from planet Raydia!,7,50,10,alienYellow

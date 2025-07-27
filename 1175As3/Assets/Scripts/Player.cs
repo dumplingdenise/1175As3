@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public int curArmorRating;
 
     // for playermovement
-    private Vector2 moveDir;
+    public Vector2 moveDir;
     private Rigidbody2D rb;
 
     //walking animation    
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     // ref gameUI
     private GameUIManager gameUIManager;
 
-    private WeaponHolder playerWeaponHolder;
+    /*public WeaponHolder playerWeaponHolder;*/
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -67,10 +67,11 @@ public class Player : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
 
         // Ensure WeaponHolder knows initial facing direction (defaulting to true)
-        if (playerWeaponHolder != null)
+        /*if (playerWeaponHolder != null)
         {
             playerWeaponHolder.SetFacingDirection(true); // Player starts facing right by default
-        }
+        }*/
+
 
         /*Debug.Log("Using override controller:");
         foreach (var pair in overrideController.animationClips)
@@ -158,20 +159,20 @@ public class Player : MonoBehaviour
             sr.flipX = true;
 
             // inform weaponholder to change direction for shooting
-            if(playerWeaponHolder != null && playerWeaponHolder.facingRight == true) // only update if the direction actually change
+            /*if(playerWeaponHolder != null && playerWeaponHolder.facingRight == true) // only update if the direction actually change
             {
                 playerWeaponHolder.SetFacingDirection(false);
-            }
+            }*/
         }
         else if (moveDir.x > 0.01f) // walking right
         { 
             sr.flipX = false;
 
             // inform weaponholder to change direction for shooting
-            if (playerWeaponHolder != null && playerWeaponHolder.facingRight == false) // only update if the direction actually change
+            /*if (playerWeaponHolder != null && playerWeaponHolder.facingRight == false) // only update if the direction actually change
             {
                 playerWeaponHolder.SetFacingDirection(true);
-            }
+            }*/
         }
 
         // for animation

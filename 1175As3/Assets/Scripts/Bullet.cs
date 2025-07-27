@@ -33,9 +33,10 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        // Keep this log for continuous check
+        /*// Keep this log for continuous check
         Debug.Log($"[Bullet - {gameObject.name}] Update running. moveDirection: {moveDirection}, speed: {speed}, DeltaTime: {Time.deltaTime}");
-        transform.position += moveDirection * speed * Time.deltaTime;
+        transform.position += moveDirection * speed * Time.deltaTime;*/
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D other)

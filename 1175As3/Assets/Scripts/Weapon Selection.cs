@@ -18,6 +18,8 @@ public class WeaponSelection : MonoBehaviour
     public Button selectButton; // Renamed from PlayButton
     public Button backButton;   // Renamed
 
+    public WeaponLoader weaponLoader;
+
     // No need for a direct WeaponLoader reference here if WeaponLoader calls InitializeWeapons
 
     private WeaponData[] allWeapons;
@@ -102,6 +104,7 @@ public class WeaponSelection : MonoBehaviour
     public void OnSelectButtonClick() // Renamed from OnPlayButtonClick
     {
         PlayerPrefs.SetInt("SelectedWeaponIndex", currentWeaponIndex);
+        SelectedWeapon.instance.selectedWeapon = allWeapons[currentWeaponIndex];
         SceneManager.LoadScene("GameScene"); // Retained original game scene load
     }
 

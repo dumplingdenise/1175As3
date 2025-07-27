@@ -23,6 +23,7 @@ public class WeaponLoader : MonoBehaviour
     void Start()
     {
         LoadWeaponsFromCSV();
+        weaponSelectionUI = weaponSelectionUI.GetComponent<WeaponSelection>();
     }
 
     void LoadWeaponsFromCSV()
