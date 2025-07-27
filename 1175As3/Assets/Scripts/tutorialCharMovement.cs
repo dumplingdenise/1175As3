@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
 
-public class tutorialCharMovement : MonoBehaviour
+public class TutorialCharMovement : MonoBehaviour
 {
     private BoxCollider2D bc;
     private Rigidbody2D rb;

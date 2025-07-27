@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 51758669}
   - component: {fileID: 51758670}
   - component: {fileID: 51758671}
+  - component: {fileID: 51758672}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -337,6 +338,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ef6fd2ff46e98409a67241aafe1608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &51758672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51758664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea7b2333ec5ead4d9c75243dca8040f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8774653604127712920, guid: ace938e1006a870409201b5615861d40, type: 3}
+  firePoint: {fileID: 1384669523}
 --- !u!1 &97950889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,6 +1675,37 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1384669522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1384669523}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1384669523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384669522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1837345332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1497083842
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,7 +2253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1837345332
 Transform:
   m_ObjectHideFlags: 0
@@ -2220,7 +2266,8 @@ Transform:
   m_LocalPosition: {x: 0.332, y: -0.31, z: 0}
   m_LocalScale: {x: 0.116107054, y: 0.116107054, z: 0.116107054}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1384669523}
   m_Father: {fileID: 51758666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.123}
 --- !u!212 &1837345333

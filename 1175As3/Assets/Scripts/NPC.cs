@@ -18,7 +18,7 @@ public class NPC : MonoBehaviour, IInteractable
     private int dialogueIndex;
     private bool isTyping, isDialogueActive;
 
-    public tutorialCharMovement playerScript;
+    public TutorialCharMovement playerScript;
 
     public bool shouldFadeAndDisappear = false; 
 
