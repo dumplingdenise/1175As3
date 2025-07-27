@@ -26,7 +26,6 @@ public class MenuManager : MonoBehaviour
     }
     public void StartGame()
     {
-       
         // Load to a new scene by the name
         SceneManager.LoadScene("CharacterSelection");
     }
