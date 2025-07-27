@@ -1,0 +1,21 @@
+[
+  {
+    "waveId": "wave_001",
+    "waveName": "First Encounter",
+    "spawnCondition": "time_based",
+    "conditionValue": "5",
+    "enemiesToSpawn": [
+      { "enemyId": "enemy_goblin", "count": 3, "spawnPointTag": "top" },
+      { "enemyId": "enemy_archer", "count": 1, "spawnPointTag": "random" }
+    ]
+  },
+  {
+    "waveId": "wave_002",
+    "waveName": "Goblin Rush",
+    "spawnCondition": "time_based",
+    "conditionValue": "15",
+    "enemiesToSpawn": [
+      { "enemyId": "enemy_goblin", "count": 5, "spawnPointTag": "left" }
+    ]
+  }
+]

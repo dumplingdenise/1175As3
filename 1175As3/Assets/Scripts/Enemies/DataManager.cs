@@ -49,10 +49,24 @@ public class DataManager : MonoBehaviour
             // Deserialize directly into a List<EnemyData> using Newtonsoft.Json
             allEnemies = JsonConvert.DeserializeObject<List<Enemy>>(jsonContent);
             Debug.Log($"[DataManager] Loaded {allEnemies.Count} enemies from {fileName}.");
+
+            if (allEnemies != null && allEnemies.Count > 0)
+            {
+                Debug.Log($"[DataManager] Successfully deserialized {allEnemies.Count} enemies from {fileName}.");
+                foreach (var enemy in allEnemies)
+                {
+                    Debug.Log($"[DataManager] Deserialized Enemy ID: '{enemy.id}', Name: '{enemy.name}', Health: {enemy.health}");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"[DataManager] Deserialized {fileName} but the list of enemies is null or empty. Check Enemy C# class matches JSON structure.");
+            }
         }
         else
         {
             Debug.LogError($"[DataManager] Enemy data file not found at: {fullPath}");
+            allEnemies = new List<Enemy>(); // initialize empty list to prevent further NREs
         }
     }
 

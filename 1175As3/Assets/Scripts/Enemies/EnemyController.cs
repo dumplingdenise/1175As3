@@ -16,9 +16,8 @@ public class EnemyController : MonoBehaviour
     {
         enemyData = data;
         currentHealth = enemyData.health;
-        // override - all enemies have xxx health
-        currentHealth = 150;
-        Debug.Log($"[EnemyController] Initialized enemy: {enemyData.name} with Health: {currentHealth} and Speed: {enemyData.movementSpeed}");
+        Debug.Log($"Initialized enemy: {enemyData.name} with Health: {currentHealth}");
+
 
         // find player object using its tag (make sure your player GameObject has the "Player" tag)
         GameObject player = GameObject.FindGameObjectWithTag("Player");
