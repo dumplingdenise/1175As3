@@ -1239,8 +1239,10 @@ MonoBehaviour:
   allCharacterAnimations:
   - {fileID: 7400000, guid: fc27aa4fd9a37ae4aa8d895a5fb72fe5, type: 2}
   - {fileID: 7400000, guid: c7a413f043c47d945a9c18b76bf45820, type: 2}
+  - {fileID: 7400000, guid: 6d7d1517b7c2fbb44bb074c0bcf73381, type: 2}
   - {fileID: 7400000, guid: ebb057de89a8a6b498e9e79b798b17bd, type: 2}
   - {fileID: 7400000, guid: e33b22b8b1dd2994cbb9558fed5867fb, type: 2}
+  - {fileID: 7400000, guid: 7fe26d97ab65a5d4d902b9645b737afb, type: 2}
   charactersList:
     characters: []
 --- !u!4 &589622861
@@ -2686,6 +2688,7 @@ MonoBehaviour:
     defaultCharacterSprite: {fileID: 0}
     idleAnimation: {fileID: 0}
     runAnimation: {fileID: 0}
+    hurtAnimation: {fileID: 0}
 --- !u!4 &1824032174
 Transform:
   m_ObjectHideFlags: 0

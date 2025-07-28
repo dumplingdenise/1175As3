@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
         AnimatorOverrideController overrideController = new AnimatorOverrideController(baseController);
         overrideController["Idle"] = characterData.idleAnimation;
         overrideController["Run"] = characterData.runAnimation;
+        overrideController["Hurt"] = characterData.hurtAnimation;
         animator.runtimeAnimatorController = overrideController;
 
         // Ensure WeaponHolder knows initial facing direction (defaulting to true)
@@ -95,40 +96,40 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             EnemyController enemyController = collision.GetComponent<EnemyController>();
-
-            int dmgTaken = 0;
-
-            dmgTaken = enemyController.enemyData.contactDamage;
-            int remainDmg;
-
+            int dmgTaken = enemyController.enemyData.contactDamage;
+            int remainDmg = dmgTaken;
 
             if (curArmorRating > 0)
             {
                 if (dmgTaken > curArmorRating)
                 {
+                    Debug.LogError("Dmg more than armor");
                     remainDmg = dmgTaken - curArmorRating;
-                    curArmorRating -= dmgTaken;
-
-                    currentHealth -= remainDmg;
+                    curArmorRating = 0;
                 }
                 else
                 {
+                    Debug.LogError("Dmg less than or equal to armor");
                     curArmorRating -= dmgTaken;
+                    remainDmg = 0;
                 }
             }
-            else
-            {
-                currentHealth -= dmgTaken;
-            }
+
+            currentHealth -= remainDmg;
+
+            // test hurt
+            animator.SetTrigger("isHurt");
 
             if (currentHealth <= 0)
             {
                 SceneManager.LoadScene("GameOverMenu");
             }
+
             gameUIManager.UpdateHealth(currentHealth, maxHealth);
             gameUIManager.UpdateArmor(curArmorRating, maxArmorRating);
         }
     }
+
 
     void playerMovement()
     {

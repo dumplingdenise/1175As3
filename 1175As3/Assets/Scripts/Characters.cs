@@ -27,7 +27,7 @@ public class Characters : MonoBehaviour
 
         public AnimationClip idleAnimation;
         public AnimationClip runAnimation;
-        /*public AnimationClip injuredAnimation;*/
+        public AnimationClip hurtAnimation;
     }
 
     [System.Serializable]
@@ -99,7 +99,6 @@ public class Characters : MonoBehaviour
                 maxHealth = int.Parse(parts[4]),
                 armorRating = int.Parse(parts[5]),
                 characterSpriteName = parts[6],
-                /*movementSprite = new Dictionary<string, List<Sprite>>()*/
             };
 
             // get all the sprites related to that character based on the sprite name in excel
@@ -128,6 +127,10 @@ public class Characters : MonoBehaviour
                     if (animation.name == $"{name}_Run")
                     {
                         charactersList.characters[index].runAnimation = animation;
+                    }
+                    if (animation.name == $"{name}_Hurt")
+                    {
+                        charactersList.characters[index].hurtAnimation = animation;
                     }
                 }
 

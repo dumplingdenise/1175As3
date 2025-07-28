@@ -27,7 +27,7 @@ public class GameOverUIManager : MonoBehaviour
             Debug.LogError("DynamicDataManager instance not found! Cannot save game stats.");
         }
 
-        SceneManager.LoadScene("StartGameMenu");
+        SceneManager.LoadScene("Main");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
