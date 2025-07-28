@@ -26,6 +26,5 @@ MonoBehaviour:
     speakerPortrait: {fileID: -7409788283609738144, guid: 99c0ffbc19348a94db6d8848d8cb72b2, type: 3}
     line: Use your left mouse button to shoot!
   typingSpeed: 0.05
-  voiceSound: {fileID: 0}
+  voiceSound: {fileID: 8300000, guid: 3dc8c77211f4f5e4b8650475567a8f47, type: 3}
   voicePitch: 0.5
-  autoProgressDelay: 1.5
