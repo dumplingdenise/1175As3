@@ -103,13 +103,11 @@ public class Player : MonoBehaviour
             {
                 if (dmgTaken > curArmorRating)
                 {
-                    Debug.LogError("Dmg more than armor");
                     remainDmg = dmgTaken - curArmorRating;
                     curArmorRating = 0;
                 }
                 else
                 {
-                    Debug.LogError("Dmg less than or equal to armor");
                     curArmorRating -= dmgTaken;
                     remainDmg = 0;
                 }
@@ -158,22 +156,10 @@ public class Player : MonoBehaviour
         if (moveDir.x < -0.01f) // walking left
         {
             sr.flipX = true;
-
-            // inform weaponholder to change direction for shooting
-            /*if(playerWeaponHolder != null && playerWeaponHolder.facingRight == true) // only update if the direction actually change
-            {
-                playerWeaponHolder.SetFacingDirection(false);
-            }*/
         }
         else if (moveDir.x > 0.01f) // walking right
         { 
             sr.flipX = false;
-
-            // inform weaponholder to change direction for shooting
-            /*if (playerWeaponHolder != null && playerWeaponHolder.facingRight == false) // only update if the direction actually change
-            {
-                playerWeaponHolder.SetFacingDirection(true);
-            }*/
         }
 
         // for animation

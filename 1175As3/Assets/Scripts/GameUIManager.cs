@@ -81,7 +81,7 @@ public class GameUIManager : MonoBehaviour
         }
 
         Time.timeScale = 1.0f; //ensure game time is normal
-        SceneManager.LoadScene("StartGameMenu");
+        SceneManager.LoadScene("Main");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
