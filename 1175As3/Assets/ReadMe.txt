@@ -6,24 +6,29 @@ WASD
 Arrow Keys
 Left Click to shoot 
 
+==========================================================================
+
 Task Attempted:
 
 Character System - Denise
 
-Compulsory Task:
-- Fields are initialized from CSV file
-- Character class have a minimum of 2 fully implemented items (Green Alien & Yellow Alien)
+Compulsory Task (Denise):
+- Character class with stats
+Fields are initialized from CSV file
+- At least 2 fully implemented items (Green Alien & Yellow Alien)
 - Player can pick a character to use during gameplay with different statistic (Shumin)
 - Carries the selected character data to game via SelectedCharacterManager script (scene-to-scene data persistence)
 - Selected character's sprite & stats applied to player in player script
 
-Additional Task:
-- Animation override based on character (idle/run swaps dynamically base on selected character in game)
+Additional Task (Denise):
+- Animation override based on character (idle/run/hurt swaps dynamically base on selected character in game)
 
 scripts:
-Characters
-Player
-Selected Character Manager
+Characters.cs
+Player.cs
+SelectedCharacterManager.cs
+
+==========================================================================
 
 Dialogue System (Denise)
 The dialogue system is being triggered at the tutorial scene where player interacts with the NPCs to guide them on the controls.
@@ -43,48 +48,75 @@ Additional Task:
 - Displays of speaker image portrait
 
 scripts:
-Dialogue Manager
-Dialogue
-IInteractable
-NPC
-Tutorial Character Movement
-Tutorial Player Interact
-Tutorial Bullet
-Tutorial Shoot
+DialogueManager.cs
+Dialogue.cs
+IInteractable.cs
+NPC.cs
+TutorialCharMovement.cs
+TutorialPlayerInteract.cs
+TutorialBullet.cs
+TutorialShoot.cs
+
+==========================================================================
 
 Weapon Class (compulsory) - KaiRu
 
 scripts:
-Weapon Loader
-Player Weapon - Denise
-Bullets
-Weapon Selection
+WeaponLoader.cs
+PlayerWeapon.cs (Denise)
+SelectedWeapon.cs (Denise)
+Bullets.cs
+WeaponSelection.cs
+
+==========================================================================
 
 Enemy & Enemy Wave Class (compulsory) - Nomitha
 
 scripts:
-Wave Manager
-Enemy Data
-Enemy Controller
-Data Manager
-Enemy to Spawn
+WaveManager.cs
+EnemyData.cs
+EnemyController.cs
+DataManager.cs
+EnemytoSpawn.cs
 
-Dynamic Data System (compulsory) - ShuMin
+==========================================================================
+
+Dynamic Data System (ShuMin)
+
+Compulsory task:
+- Track at least 2 stats (enemiesDefeated, wavesCompleted, totalDistanceTraveled)
+- Data persists across scene
+- data displayed in-game (character's health & armor rating)
+- Data saved to extern file (json file)
+- Past log data preserved
+
+Bonus task:
+- Save/load system
 
 scripts:
-Dynamic Data
+DynamicDataManager.cs
+StatisticsDisplayManager.cs
 
-Save & Load (bonus) - ShuMin
+==========================================================================
+
+UI (ShuMin)
+
+Compulsory task:
+- Game Menu UI
+- Game Over UI
+- Game Pause UI
+- Achievement UI
+
+Bonus task:
+- Character selection scalable UI
 
 scripts:
-Statistics Display Manager
+GameUIManager.cs
+GameOverUiManager.cs
+MenuManager.cs
+CharacterSelectionManager.cs
 
-UI (compulsory) - ShuMin
-
-scripts:
-GameUIManager
-Game Over Ui Manager
-Menu Manager
+==========================================================================
 
 Assests
 https://www.kenney.nl/assets/alien-ufo-pack 
