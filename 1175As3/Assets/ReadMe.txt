@@ -117,7 +117,35 @@ MenuManager.cs
 CharacterSelectionManager.cs
 
 ==========================================================================
+List of Bugs :(
 
+Bug Log: Enemies Not Spawning After Restart/Re-entering Game
+
+Description:
+When the game is restarted (either directly from a "Restart" button in-game 
+or by returning to the main menu and starting a new game session), enemies fail to spawn. 
+The WaveManager reports that its 'Enemy Prefab' is not assigned.
+
+Symptoms:
+- No enemies appear in the game world after initiating a new game session following a previous one.
+- Debug console shows the error: "[WaveManager] Enemy Prefab is not assigned in the Inspector! Cannot spawn enemies."
+
+Technical Details:
+The 'enemyPrefab' field on the persistent 'WaveManager' script (located on the GameManager GameObject) 
+appears to become null after a scene reload, despite being correctly assigned in the Inspector on initial game launch.
+
+Location of Error:
+WaveManager:SpawnEnemiesInWave (Assets/Scripts/Enemies/WaveManager.cs:254)
+
+How to avoid (or workaround):
+Avoidance/Workaround:
+For persistent (DontDestroyOnLoad) singletons, explicitly store critical Inspector references 
+in private variables during the initial 'Awake' or 'Start' call. Then, re-assign the public fields from 
+these private variables within any reset/initialization method (like ResetWaveManager()) that runs when a new game session begins.
+
+*Sorry prof i tried to fix this issue for the person doing this part but i cant, i tried my best :(
+
+==========================================================================
 Assests
 https://www.kenney.nl/assets/alien-ufo-pack 
 https://www.kenney.nl/assets/space-shooter-extension 
