@@ -13,7 +13,7 @@
     "waveId": "wave_002",
     "waveName": "Goblin Rush",
     "spawnCondition": "time_based",
-    "conditionValue": "15",
+    "conditionValue": "30",
     "enemiesToSpawn": [
       { "enemyId": "enemy_goblin", "count": 5, "spawnPointTag": "left" }
     ]

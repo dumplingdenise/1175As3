@@ -8,7 +8,7 @@
     "bulletFiringRate": 0,
     "movementPattern": "chasing_player",
     "behaviour": "melee",
-    "spritePath": "goblin_sprite"
+    "spritePath": "Sprites/Enemies/grassBlock"
   },
   {
     "id": "enemy_archer",
@@ -19,6 +19,6 @@
     "bulletFiringRate": 1.0,
     "movementPattern": "random",
     "behaviour": "ranged",
-    "spritePath": "archer_sprite"
+    "spritePath": "Sprites/Enemies/barnacle"
   }
 ]

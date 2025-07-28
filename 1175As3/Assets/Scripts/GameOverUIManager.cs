@@ -11,6 +11,19 @@ public class GameOverUIManager : MonoBehaviour
 
     public void OnRestartButtonClick()
     {
+        // Attempt to reset WaveManager if it exists and is accessible.
+        // This provides a "belt-and-suspenders" approach to ensure a clean slate,
+        // even if the WaveManager somehow persists unexpectedly across scene loads.
+        if (WaveManager.Instance != null)
+        {
+            Debug.Log("[GameOverUIManager] Calling WaveManager.Instance.ResetWaveManager() before reloading GameScene.");
+            WaveManager.Instance.ResetWaveManager();
+        }
+        else
+        {
+            Debug.LogWarning("[GameOverUIManager] WaveManager.Instance is null when attempting to reset it. This might be expected if the WaveManager is fully destroyed and recreated per scene load, or an issue if it's supposed to persist.");
+        }
+
         SceneManager.LoadScene("GameScene");
     }
 
