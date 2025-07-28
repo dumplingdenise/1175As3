@@ -103,6 +103,17 @@ public class WeaponSelection : MonoBehaviour
 
     public void OnSelectButtonClick() // Renamed from OnPlayButtonClick
     {
+        // This will call the ResetWaveManager method on the existing, persistent WaveManager instance.
+        if (WaveManager.Instance != null)
+        {
+            Debug.Log("[GameOverUIManager] Calling WaveManager.Instance.ResetWaveManager() before reloading GameScene.");
+            WaveManager.Instance.ResetWaveManager();
+        }
+        else
+        {
+            Debug.LogWarning("[GameOverUIManager] WaveManager.Instance is null when trying to reset it from GameOver screen. This should not happen if WaveManager is on a DontDestroyOnLoad GameObject.");
+        }
+
         PlayerPrefs.SetInt("SelectedWeaponIndex", currentWeaponIndex);
         SelectedWeapon.instance.selectedWeapon = allWeapons[currentWeaponIndex];
         SceneManager.LoadScene("GameScene"); // Retained original game scene load
