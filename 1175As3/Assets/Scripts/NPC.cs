@@ -28,7 +28,7 @@ public class NPC : MonoBehaviour, IInteractable
     public TutorialShoot shootScript; // ref to shooting script
     public bool canShoot = false;
 
-
+    public AudioSource audioSource;
     public bool CanInteract()
     {
         return !isDialogueActive;
@@ -102,6 +102,8 @@ public class NPC : MonoBehaviour, IInteractable
         foreach (char letter in dialogueData.lines[dialogueIndex].line)
         {
             dialogueText.text += letter;
+
+            playSFX();
 
             yield return new WaitForSeconds(dialogueData.typingSpeed);
         }
@@ -184,11 +186,18 @@ public class NPC : MonoBehaviour, IInteractable
         return isDialogueActive;
     }
 
+    void playSFX()
+    {       
+        audioSource.pitch = dialogueData.voicePitch;
+        audioSource.PlayOneShot(dialogueData.voiceSound);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.Stop();
     }
 
     // Update is called once per frame

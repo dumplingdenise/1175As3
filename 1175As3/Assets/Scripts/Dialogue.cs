@@ -14,7 +14,7 @@ public class Dialogue : ScriptableObject
 
     public DialogueLine[] lines; // dialog lines
     public float typingSpeed = 0.05f; // speed of typewriter effect
-    /*public AudioClip voiceSound;
-    public float voicePitch = 0.5f;*/
+    public AudioClip voiceSound;
+    public float voicePitch = 1f;
     /*public float autoProgressDelay = 1.5f;*/ // Delay before auto-advancing
 }

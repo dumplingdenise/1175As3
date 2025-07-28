@@ -30,6 +30,5 @@ MonoBehaviour:
     line: Walk to Slimy, the green slime block there and he will tell you what to
       do next!
   typingSpeed: 0.05
-  voiceSound: {fileID: 0}
-  voicePitch: 0.5
-  autoProgressDelay: 1.5
+  voiceSound: {fileID: 8300000, guid: 3dc8c77211f4f5e4b8650475567a8f47, type: 3}
+  voicePitch: 1
