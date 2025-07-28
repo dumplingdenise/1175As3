@@ -39,7 +39,7 @@ public class MenuManager : MonoBehaviour
             DynamicDataManager.Instance.StartNewGame(); // reset the data and delete file
         }
 
-        SceneManager.LoadScene("CharacterSelection");
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void QuitGame()

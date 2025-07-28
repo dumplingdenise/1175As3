@@ -57,11 +57,7 @@ public class NPC : MonoBehaviour, IInteractable
     void StartDialogue()
     {
         isDialogueActive = true;
-        /*dialogueIndex = 0;*/
-        if (dialogueIndex == 0)
-        {
-            dialogueIndex = 0;
-        }
+        dialogueIndex = 0;
 
         UpdateSpeakerUI();
 
@@ -82,6 +78,7 @@ public class NPC : MonoBehaviour, IInteractable
             isTyping = false;
             return;
         }
+
         ++dialogueIndex;
 
         if (dialogueIndex < dialogueData.lines.Length)
@@ -209,6 +206,6 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene("StartGameMenu");
+        SceneManager.LoadScene("CharacterSelection");
     }
 }

@@ -44,6 +44,6 @@ public class StatisticsDisplayManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("StartGameMenu");
+        SceneManager.LoadScene("Main");
     }
 }

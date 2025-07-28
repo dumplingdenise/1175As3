@@ -16,29 +16,19 @@ MonoBehaviour:
   - speakerName: Boo
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
     line: Hey! I am Boo!
-    waitForCondition: 0
-    conditionKey: 
   - speakerName: Peach
     speakerPortrait: {fileID: 8490959535584418308, guid: fb01de9ef762da943ab747d517bef1f4, type: 3}
     line: Hello I am Peach
-    waitForCondition: 0
-    conditionKey: 
   - speakerName: Peach
     speakerPortrait: {fileID: 8490959535584418308, guid: fb01de9ef762da943ab747d517bef1f4, type: 3}
     line: Can you guide me?
-    waitForCondition: 0
-    conditionKey: 
   - speakerName: Boo
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
     line: Yea! Try using WASD to move around!
-    waitForCondition: 1
-    conditionKey: hasWalked
   - speakerName: Boo
     speakerPortrait: {fileID: 7392646444851725707, guid: ba319da14050fe44387aa3020078a1ae, type: 3}
     line: Walk to Slimy, the green slime block there and he will tell you what to
       do next!
-    waitForCondition: 0
-    conditionKey: 
   typingSpeed: 0.05
   voiceSound: {fileID: 8300000, guid: 3dc8c77211f4f5e4b8650475567a8f47, type: 3}
   voicePitch: 1

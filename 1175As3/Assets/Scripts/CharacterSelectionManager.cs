@@ -140,6 +140,6 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public void OnBackButtonClick()
     {
-        SceneManager.LoadScene("StartGameMenu");
+        SceneManager.LoadScene("Main");
     }
 }
