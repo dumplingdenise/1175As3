@@ -20,5 +20,71 @@
     "movementPattern": "random",
     "behaviour": "ranged",
     "spritePath": "Sprites/Enemies/barnacle"
+  },
+  {
+    "id": "enemy_ghost",
+    "name": "Ghost",
+    "health": 70, 
+    "movementSpeed": 1.5,
+    "contactDamage": 5, 
+    "bulletFiringRate": 1.2, 
+    "movementPattern": "random", 
+    "behaviour": "ranged", 
+    "spritePath": "Sprites/Enemies/ghost"
+  },
+  {
+    "id": "enemy_slime",
+    "name": "Slime",
+    "health": 150, 
+    "movementSpeed": 1.2, 
+    "contactDamage": 6,
+    "bulletFiringRate": 0,
+    "movementPattern": "chasing_player",
+    "behaviour": "melee",
+    "spritePath": "Sprites/Enemies/slime" 
+  },
+  {
+    "id": "enemy_snake",
+    "name": "Snake",
+    "health": 50, 
+    "movementSpeed": 5.5, 
+    "contactDamage": 15, 
+    "bulletFiringRate": 0,
+    "movementPattern": "chasing_player", 
+    "behaviour": "melee",
+    "spritePath": "Sprites/Enemies/snake" 
+  },
+  {
+    "id": "enemy_spider",
+    "name": "Spider",
+    "health": 90, 
+    "movementSpeed": 3.5, 
+    "contactDamage": 18, 
+    "bulletFiringRate": 0,
+    "movementPattern": "chasing_player",
+    "behaviour": "melee",
+    "spritePath": "Sprites/Enemies/spider" 
+  },
+  {
+    "id": "enemy_spinner",
+    "name": "Spinner",
+    "health": 130, 
+    "movementSpeed": 4.0, 
+    "contactDamage": 25, 
+    "bulletFiringRate": 0,
+    "movementPattern": "chasing_player",
+    "behaviour": "melee",
+    "spritePath": "Sprites/Enemies/spinner" 
+  },
+  {
+    "id": "enemy_bat",
+    "name": "Bat",
+    "health": 30, 
+    "movementSpeed": 6.5, 
+    "contactDamage": 7, 
+    "bulletFiringRate": 0,
+    "movementPattern": "random", 
+    "behaviour": "melee",
+    "spritePath": "Sprites/Enemies/bat" 
   }
 ]

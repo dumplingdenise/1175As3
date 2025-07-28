@@ -5,8 +5,16 @@
     "spawnCondition": "time_based",
     "conditionValue": "5",
     "enemiesToSpawn": [
-      { "enemyId": "enemy_goblin", "count": 3, "spawnPointTag": "top" },
-      { "enemyId": "enemy_archer", "count": 1, "spawnPointTag": "random" }
+      {
+        "enemyId": "enemy_goblin",
+        "count": 3,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_archer",
+        "count": 1,
+        "spawnPointTag": "random"
+      }
     ]
   },
   {
@@ -15,7 +23,246 @@
     "spawnCondition": "time_based",
     "conditionValue": "30",
     "enemiesToSpawn": [
-      { "enemyId": "enemy_goblin", "count": 5, "spawnPointTag": "left" }
+      {
+        "enemyId": "enemy_goblin",
+        "count": 5,
+        "spawnPointTag": "left"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_003",
+    "waveName": "Ghostly Presence",
+    "spawnCondition": "time_based",
+    "conditionValue": "35", // 17 seconds after wave 2 (18s + 17s = 35s)
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_ghost",
+        "count": 5,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_archer",
+        "count": 2,
+        "spawnPointTag": "left"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_004",
+    "waveName": "Slimey Surprise",
+    "spawnCondition": "time_based",
+    "conditionValue": "55", // 20 seconds after wave 3
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_slime",
+        "count": 8,
+        "spawnPointTag": "left"
+      },
+      {
+        "enemyId": "enemy_goblin",
+        "count": 4,
+        "spawnPointTag": "top"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_005",
+    "waveName": "Snake Ambush",
+    "spawnCondition": "time_based",
+    "conditionValue": "75", // 20 seconds after wave 4
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_snake",
+        "count": 7,
+        "spawnPointTag": "left"
+      },
+      {
+        "enemyId": "enemy_snake",
+        "count": 7,
+        "spawnPointTag": "top"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_006",
+    "waveName": "Spider Swarm",
+    "spawnCondition": "time_based",
+    "conditionValue": "95", // 20 seconds after wave 5
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_spider",
+        "count": 6,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_slime",
+        "count": 4,
+        "spawnPointTag": "top"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_007",
+    "waveName": "Spinner Rush",
+    "spawnCondition": "time_based",
+    "conditionValue": "115", // 20 seconds after wave 6
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_spinner",
+        "count": 4,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_spider",
+        "count": 3,
+        "spawnPointTag": "random"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_008",
+    "waveName": "Bat Flurry",
+    "spawnCondition": "time_based",
+    "conditionValue": "130", // 15 seconds after wave 7 (faster pace)
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_bat",
+        "count": 10,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_bat",
+        "count": 10,
+        "spawnPointTag": "random"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_009",
+    "waveName": "Mixed Threat: Ground & Air",
+    "spawnCondition": "time_based",
+    "conditionValue": "145", // 15 seconds after wave 8
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_goblin",
+        "count": 7,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_spider",
+        "count": 5,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_bat",
+        "count": 8,
+        "spawnPointTag": "left"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_010",
+    "waveName": "Mixed Threat: Ranged & Tanks",
+    "spawnCondition": "time_based",
+    "conditionValue": "165", // 20 seconds after wave 9
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_archer",
+        "count": 5,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_ghost",
+        "count": 5,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_slime",
+        "count": 6,
+        "spawnPointTag": "left"
+      },
+      {
+        "enemyId": "enemy_spinner",
+        "count": 3,
+        "spawnPointTag": "top"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_011",
+    "waveName": "The Gauntlet Begins!",
+    "spawnCondition": "time_based",
+    "conditionValue": "180", // 15 seconds after wave 10 (increasing pressure)
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_snake",
+        "count": 8,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_spider",
+        "count": 8,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_bat",
+        "count": 12,
+        "spawnPointTag": "left"
+      },
+      {
+        "enemyId": "enemy_archer",
+        "count": 4,
+        "spawnPointTag": "left"
+      }
+    ]
+  },
+  {
+    "waveId": "wave_012",
+    "waveName": "ALL OUT ASSAULT!",
+    "spawnCondition": "time_based",
+    "conditionValue": "200", // 20 seconds after wave 11
+    "enemiesToSpawn": [
+      {
+        "enemyId": "enemy_goblin",
+        "count": 7,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_archer",
+        "count": 5,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_ghost",
+        "count": 5,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_slime",
+        "count": 6,
+        "spawnPointTag": "left"
+      },
+      {
+        "enemyId": "enemy_snake",
+        "count": 6,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_spider",
+        "count": 6,
+        "spawnPointTag": "random"
+      },
+      {
+        "enemyId": "enemy_spinner",
+        "count": 4,
+        "spawnPointTag": "top"
+      },
+      {
+        "enemyId": "enemy_bat",
+        "count": 15,
+        "spawnPointTag": "left"
+      }
     ]
   }
 ]
