@@ -29,8 +29,6 @@ public class WaveManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            // IMPORTANT: If you want this WaveManager to persist across scene loads (e.g., for a continuous game flow),
-            // uncomment the line below. If you want a fresh wave system every time a scene loads, keep it commented.
             // DontDestroyOnLoad(gameObject);
         }
         else
@@ -42,8 +40,8 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        // Ensure DataManager is ready and has loaded wave data.
-        // This is crucial for preventing NullReferenceExceptions.
+        // ensure DataManager has loaded data before trying to access it
+        // This check is important due to script execution order
         if (DataManager.Instance == null)
         {
             Debug.LogError("[WaveManager] DataManager.Instance is null! Please ensure DataManager script is in the scene and initializes before WaveManager (check Script Execution Order).");
