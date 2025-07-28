@@ -57,7 +57,11 @@ public class NPC : MonoBehaviour, IInteractable
     void StartDialogue()
     {
         isDialogueActive = true;
-        dialogueIndex = 0;
+        /*dialogueIndex = 0;*/
+        if (dialogueIndex == 0)
+        {
+            dialogueIndex = 0;
+        }
 
         UpdateSpeakerUI();
 
@@ -92,6 +96,7 @@ public class NPC : MonoBehaviour, IInteractable
         {
             EndDialogue();
         }
+
     }
 
     IEnumerator TypeLine()
@@ -175,10 +180,6 @@ public class NPC : MonoBehaviour, IInteractable
         {
             closeBtn.SetActive(isLastLine);
         }
-        if (nextBtn != null)
-        {
-            nextBtn.SetActive(!isLastLine);
-        }
     }
 
     public bool IsDialogueActive()
@@ -203,7 +204,7 @@ public class NPC : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void LoadNextScene()

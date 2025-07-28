@@ -27,4 +27,4 @@ MonoBehaviour:
     line: Use your left mouse button to shoot!
   typingSpeed: 0.05
   voiceSound: {fileID: 8300000, guid: 3dc8c77211f4f5e4b8650475567a8f47, type: 3}
-  voicePitch: 0.5
+  voicePitch: 1
