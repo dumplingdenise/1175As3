@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public class GameUIManager : MonoBehaviour
@@ -22,6 +23,8 @@ public class GameUIManager : MonoBehaviour
     /*private Characters.Character playerCharacter;*/
     private int currentHealth;
     private int currentArmor;
+
+    private int score = 0;
 
     public void UpdateHealth(int currentHealth, int maxHealth)
     {
@@ -44,6 +47,12 @@ public class GameUIManager : MonoBehaviour
     public void UpdateScore(int score)
     {
         ScoreText.text = "Score:" + score.ToString();
+    }
+
+    public void AddScore(int points)
+    {
+        score += points;
+        UpdateScore(score); // Call the update method to show the new score
     }
 
     public void OnPauseButtonClick()

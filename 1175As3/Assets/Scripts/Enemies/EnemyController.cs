@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public EnemyData enemyData; // Data loaded for this specific enemy is EnemyData
     private float currentHealth;
     private Transform playerTransform; // reference to the player's position
+    private GameUIManager gameUIManager; // Reference to the GameUIManager
 
     // use layer mask to define what layers the enemy can detect for collision (currently unused)
     public LayerMask playerLayer;
@@ -29,6 +30,9 @@ public class EnemyController : MonoBehaviour
             sr = gameObject.AddComponent<SpriteRenderer>();
             Debug.LogWarning($"[EnemyController] Added missing SpriteRenderer to {gameObject.name}.", this);
         }
+
+        // Find the GameUIManager in the scene and store a reference to it
+        gameUIManager = FindObjectOfType<GameUIManager>();
     }
 
     // initialize the enemy with its data
@@ -99,6 +103,13 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"[EnemyController] {enemyData.name} defeated!");
         // Notify the WaveManager that an enemy has been defeated
+
+        // Tell the GameUIManager to update the score
+        if (gameUIManager != null)
+        {
+            gameUIManager.AddScore(1);
+        }
+
         WaveManager.Instance?.OnEnemyDefeated(); // Calls the OnEnemyDefeated method in WaveManager
         Destroy(gameObject); // remove the enemy from the scene
     }
