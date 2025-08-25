@@ -113,7 +113,8 @@ public class Player : MonoBehaviour
                 }
             }
 
-            currentHealth -= remainDmg;
+            currentHealth = Mathf.Max(0, currentHealth - remainDmg);
+           // currentHealth -= remainDmg;
 
             // test hurt
             animator.SetTrigger("isHurt");
